@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="100.0" prefHeight="618.0" prefWidth="377.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints maxHeight="43.145453153247715" minHeight="20.145453153247715" prefHeight="41.272725910785816" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <ImageView fitHeight="82.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <image>
+                <Image url="@../img/User-mapping.png" />
+            </image>
+            <GridPane.margin>
+                <Insets bottom="20.0" />
+            </GridPane.margin>
+        </ImageView>
+        <Label alignment="CENTER" prefHeight="27.0" prefWidth="321.0" text="Registracija novog korisnika" GridPane.columnSpan="2147483647">
+            <font>
+                <Font name="Arial Black" size="18.0" />
+            </font>
+            <GridPane.margin>
+                <Insets bottom="20.0" />
+            </GridPane.margin></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Ime korisnika: " GridPane.rowIndex="2">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="126.0" text="Prezime korisnika: " GridPane.rowIndex="3">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Datum rođenja: " GridPane.rowIndex="4">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="124.0" text="Adresa stanovanja: " GridPane.rowIndex="5">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Email: " GridPane.rowIndex="6">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label prefHeight="40.0" prefWidth="100.0" text="Telefon: " GridPane.rowIndex="7">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Korisničko ime: " GridPane.rowIndex="8">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="127.0" text="Korisnička lozinka: " GridPane.rowIndex="9">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Uloga korisnika: " GridPane.rowIndex="10">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <TextField promptText="Ime" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin></TextField>
+        <TextField promptText="Prezime" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin></TextField>
+        <TextField promptText="Adresa" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets top="10.0" />
+            </GridPane.margin></TextField>
+        <TextField promptText="Email račun" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <GridPane.margin>
+                <Insets bottom="10.0" top="10.0" />
+            </GridPane.margin></TextField>
+        <TextField promptText="Kontakt broj" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin></TextField>
+        <TextField promptText="Korisničko ime" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <GridPane.margin>
+                <Insets top="10.0" />
+            </GridPane.margin></TextField>
+        <Button mnemonicParsing="false" text="Nazad" GridPane.rowIndex="11">
+            <GridPane.margin>
+                <Insets top="20.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="Arial Black" size="12.218181610107422" />
+            </font></Button>
+        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: lawngreen;" text="Sačuvaj" GridPane.columnIndex="1" GridPane.rowIndex="11">
+            <GridPane.margin>
+                <Insets top="20.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="Arial Black" size="12.218181610107422" />
+            </font></Button>
+        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: crimson;" text="Obriši" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+            <GridPane.margin>
+                <Insets top="20.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="Arial Black" size="12.218181610107422" />
+            </font></Button>
+      <Button mnemonicParsing="false" text="Dodaj/izmijeni sliku" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin>
+      </Button>
+      <ChoiceBox prefHeight="25.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <DatePicker prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="9" />
+    </children>
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+    </padding>
+</GridPane>
