@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="100.0" prefHeight="398.0" prefWidth="350.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints maxHeight="43.145453153247715" minHeight="20.145453153247715" prefHeight="41.272725910785816" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <Label alignment="CENTER" prefHeight="27.0" prefWidth="321.0" text="Dodaj artikal" GridPane.columnSpan="2147483647">
+            <font>
+                <Font name="Arial Black" size="18.0" />
+            </font>
+            <GridPane.margin>
+                <Insets bottom="20.0" />
+            </GridPane.margin></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Naziv artikla: " GridPane.rowIndex="1">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="126.0" text="Opis artikla: " GridPane.rowIndex="2">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Cijena artikla: " GridPane.rowIndex="3">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Količina artikla: " GridPane.rowIndex="4">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="124.0" text="Kategorija artikla: " GridPane.rowIndex="5">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Status artikla: " GridPane.rowIndex="6">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <TextField promptText="Ime artikla" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin></TextField>
+        <TextField promptText="Opis" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin></TextField>
+        <Button mnemonicParsing="false" text="Nazad" GridPane.rowIndex="7">
+            <GridPane.margin>
+                <Insets top="20.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="Arial Black" size="12.218181610107422" />
+            </font></Button>
+        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="72.0" style="-fx-background-color: lawngreen;" text="Sačuvaj" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <GridPane.margin>
+                <Insets top="20.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="Arial Black" size="12.218181610107422" />
+            </font></Button>
+        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="78.0" style="-fx-background-color: crimson;" text="Obriši" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+            <GridPane.margin>
+                <Insets top="20.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="Arial Black" size="12.218181610107422" />
+            </font></Button>
+      <ChoiceBox fx:id="choiceKategorija" prefHeight="25.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <ChoiceBox fx:id="choiceStatus" prefHeight="25.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Spinner prefHeight="25.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Spinner prefHeight="25.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+    </children>
+    <padding>
+        <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+    </padding>
+</GridPane>
