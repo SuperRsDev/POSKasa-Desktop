@@ -35,7 +35,7 @@
                 <Insets bottom="20.0" />
             </GridPane.margin>
         </ImageView>
-        <Label alignment="CENTER" prefHeight="27.0" prefWidth="321.0" text="Registracija novog korisnika" GridPane.columnSpan="2147483647">
+        <Label alignment="CENTER" prefHeight="27.0" prefWidth="321.0" text="Korisnik" GridPane.columnSpan="2147483647">
             <font>
                 <Font name="Arial Black" size="18.0" />
             </font>

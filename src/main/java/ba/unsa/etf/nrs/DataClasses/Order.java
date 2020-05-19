@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Order {
     private int id;
-    private Employee employee;
+    private User user;
     private PaymentType paymentType;
     private LocalDate date;
     private String status;
@@ -13,9 +13,9 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, Employee employee, PaymentType paymentType, LocalDate date, String status, String orderType) {
+    public Order(int id, User user, PaymentType paymentType, LocalDate date, String status, String orderType) {
         this.id = id;
-        this.employee = employee;
+        this.user = user;
         this.paymentType = paymentType;
         this.date = date;
         this.status = status;
@@ -30,12 +30,12 @@ public class Order {
         this.id = id;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployee(User user) {
+        this.user = user;
     }
 
     public PaymentType getPaymentType() {
