@@ -1,4 +1,4 @@
-package ba.unsa.etf.nrs;
+package ba.unsa.etf.nrs.Contollers;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

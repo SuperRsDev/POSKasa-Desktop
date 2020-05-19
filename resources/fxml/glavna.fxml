@@ -36,7 +36,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" text="Bosanski" />
                </items>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
@@ -48,7 +48,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" text="English" />
                </items>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
@@ -60,7 +60,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" text="Odjava" />
                </items>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
