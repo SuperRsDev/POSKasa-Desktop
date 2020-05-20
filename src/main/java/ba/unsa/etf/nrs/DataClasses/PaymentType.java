@@ -14,6 +14,11 @@ public class PaymentType {
         this.description = description;
     }
 
+    public PaymentType(String paymentTypeProvider, String description) {
+        this.paymentTypeProvider = paymentTypeProvider;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

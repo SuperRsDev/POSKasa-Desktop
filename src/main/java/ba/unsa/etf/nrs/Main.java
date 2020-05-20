@@ -1,9 +1,7 @@
 package ba.unsa.etf.nrs;
 
 import ba.unsa.etf.nrs.Contollers.GlavnaController;
-import ba.unsa.etf.nrs.DataClasses.Category;
-import ba.unsa.etf.nrs.DataClasses.Product;
-import ba.unsa.etf.nrs.DataClasses.User;
+import ba.unsa.etf.nrs.DataClasses.*;
 import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,22 +24,26 @@ public class Main extends Application {
         primaryStage.setTitle("POS Kasa");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();*/
+        PosDAO dao = PosDAO.getInstance();
+
         Category category = new Category(3, "slatkisi", "opis");
         Product product = new Product("Čokolada", 50, "dostupan", "mliječna čokolada", 2, 1, category);
 
-        PosDAO dao = PosDAO.getInstance();
-        dao.addProduct(product);
-        ArrayList<Category> categories = dao.categories();
-        for (int i = 0; i < categories.size(); i++) {
-            System.out.println(categories.get(i));
+        User user = new User("Neko", "Nekic2", "nenkic2", "1234", "nnekic2@etf.unsa.ba", "062345678", "Adresa 123", "User-mapping.png", LocalDate.now(), "loginProvider");
+        PaymentType paymentType = new PaymentType("paymentTypeProvider", "description");
+        Order order = new Order(user, paymentType, LocalDate.now(), "status", "orderType");
+
+        Integer totalSum = 0;
+        ArrayList<Integer> subs = dao.getSubTotals(order.getId());
+        for (Integer i:subs) {
+            totalSum = totalSum + i;
         }
 
-        System.out.println(" ... ");
+        POS pos = new POS(order, totalSum, 1234);
 
-        ArrayList<Product> products = dao.products();
-        for (int i = 0; i < products.size(); i++) {
-            System.out.println(products.get(i));
-        }
+        dao.addPos(pos);
+
+
     }
 
 

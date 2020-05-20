@@ -1,6 +1,7 @@
 package ba.unsa.etf.nrs.PosDAO;
 
 import ba.unsa.etf.nrs.DataClasses.Category;
+import ba.unsa.etf.nrs.DataClasses.POS;
 import ba.unsa.etf.nrs.DataClasses.Product;
 import ba.unsa.etf.nrs.DataClasses.User;
 import ba.unsa.etf.nrs.NoInternetException;
@@ -85,7 +86,7 @@ public class PosDAO {
         return jsonArray;
     }
 
-    public ArrayList<Product> products() {
+    public ArrayList<Product> getProducts() {
         ArrayList<Product> result = new ArrayList<>();
         JSONArray jsonArray = connectToURL("products");
         if (jsonArray == null) return null;
@@ -98,6 +99,30 @@ public class PosDAO {
             result.add(product);
         }
         return result;
+    }
+
+    public Product getProduct(int id) {
+        URL url = null;
+        Product product = null;
+        try {
+            url = new URL("http://localhost:8080/pos/product/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            String json = "", line = "";
+            while ((line = entry.readLine()) != null) {
+                json = json + line;
+            }
+            if (json.isEmpty()) return null;
+            JSONObject jo = new JSONObject(json);
+            product = new Product(jo.getInt("id"), jo.getString("name"), jo.getInt("stockQuantity"), jo.getString("description"), jo.getString("status"),
+                    jo.getInt("unitPrice"), jo.getInt("sellingPrice"), getCategory(jo.getInt("categoryId")));
+        } catch (IOException e) {
+            new NoInternetException();
+        }
+        return product;
     }
 
     public Category getCategory(int id) {
@@ -124,7 +149,7 @@ public class PosDAO {
     }
 
 
-    public ArrayList<Category> categories() {
+    public ArrayList<Category> getCategories() {
         ArrayList<Category> result = new ArrayList<>();
         JSONArray jsonArray = connectToURL("categories");
         if (jsonArray == null) return null;
@@ -136,7 +161,7 @@ public class PosDAO {
         return result;
     }
 
-    public ArrayList<User> users() {
+    public ArrayList<User> getUsers() {
         ArrayList<User> result = new ArrayList<>();
         JSONArray jsonArray = connectToURL("users");
         if (jsonArray == null) return null;
@@ -145,6 +170,20 @@ public class PosDAO {
             LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
             User user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"), jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"), jo.getString("picture"), date, jo.getString("loginProvider"));
             result.add(user);
+        }
+        return result;
+    }
+
+    public ArrayList<Integer> getSubTotals(int orderId) {
+        ArrayList<Integer> result = new ArrayList<>();
+        JSONArray jsonArray = connectToURL("subTotals/" + orderId);
+        if (jsonArray == null) return null;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            int subTotalForOneProduct = 0;
+            JSONObject jo = jsonArray.getJSONObject(i);
+            Product product = getProduct(jo.getInt("productId"));
+            subTotalForOneProduct = product.getSellingPrice() * jo.getInt("quantity");
+            result.add(subTotalForOneProduct);
         }
         return result;
     }
@@ -236,9 +275,26 @@ public class PosDAO {
         jsonProduct.put("unitPrice", product.getUnitPrice());
         jsonProduct.put("sellingPrice", product.getSellingPrice());
         jsonProduct.put("categoryId", product.getCategory().getId());
-        System.out.println(url + "    dgfsdf ");
+
         int id = addViaHttp(jsonProduct, url);
         product.setProductId(id);
+    }
+
+    public void addPos(POS pos) {
+        URL url = null;
+        try {
+            url = new URL("http://localhost:8080/pos/pos");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        JSONObject jsonPos = new JSONObject();
+        jsonPos.put("id", pos.getId());
+        jsonPos.put("orderId", pos.getOrder().getId());
+        jsonPos.put("totalSum", pos.getTotalSum());
+        jsonPos.put("fiscalNumber", pos.getFiscalNumber());
+
+        int id = addViaHttp(jsonPos, url);
+        pos.setId(id);
     }
 
 

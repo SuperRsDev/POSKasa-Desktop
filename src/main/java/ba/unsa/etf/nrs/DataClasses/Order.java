@@ -22,6 +22,14 @@ public class Order {
         this.orderType = orderType;
     }
 
+    public Order(User user, PaymentType paymentType, LocalDate date, String status, String orderType) {
+        this.user = user;
+        this.paymentType = paymentType;
+        this.date = date;
+        this.status = status;
+        this.orderType = orderType;
+    }
+
     public int getId() {
         return id;
     }
