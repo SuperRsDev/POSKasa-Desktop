@@ -2,6 +2,7 @@ package ba.unsa.etf.nrs;
 
 import ba.unsa.etf.nrs.Contollers.GlavnaController;
 import ba.unsa.etf.nrs.DataClasses.Category;
+import ba.unsa.etf.nrs.DataClasses.Product;
 import ba.unsa.etf.nrs.DataClasses.User;
 import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import javafx.application.Application;
@@ -25,15 +26,22 @@ public class Main extends Application {
         primaryStage.setTitle("POS Kasa");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();*/
+        Category category = new Category(3, "slatkisi", "opis");
+        Product product = new Product("Čokolada", 50, "dostupan", "mliječna čokolada", 2, 1, category);
 
         PosDAO dao = PosDAO.getInstance();
-        Category category = new Category("slatkisi", "opis");
-        dao.addCategory(category);
+        dao.addProduct(product);
         ArrayList<Category> categories = dao.categories();
         for (int i = 0; i < categories.size(); i++) {
-            System.out.println(categories.get(i) + "\n");
+            System.out.println(categories.get(i));
         }
 
+        System.out.println(" ... ");
+
+        ArrayList<Product> products = dao.products();
+        for (int i = 0; i < products.size(); i++) {
+            System.out.println(products.get(i));
+        }
     }
 
 

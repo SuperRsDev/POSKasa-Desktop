@@ -1,7 +1,7 @@
 package ba.unsa.etf.nrs.DataClasses;
 
 public class Product {
-    private int productId;
+    private int id;
     private String name;
     private int stockQuantity;
     private String status;
@@ -11,7 +11,17 @@ public class Product {
     private Category category;
 
     public Product(int productId, String name, int stockQuantity, String status, String description, int unitPrice, int sellingPrice, Category category) {
-        this.productId = productId;
+        this.id = productId;
+        this.name = name;
+        this.stockQuantity = stockQuantity;
+        this.status = status;
+        this.description = description;
+        this.unitPrice = unitPrice;
+        this.sellingPrice = sellingPrice;
+        this.category = category;
+    }
+
+    public Product(String name, int stockQuantity, String status, String description, int unitPrice, int sellingPrice, Category category) {
         this.name = name;
         this.stockQuantity = stockQuantity;
         this.status = status;
@@ -24,11 +34,11 @@ public class Product {
     public Product() {}
 
     public int getProductId() {
-        return productId;
+        return id;
     }
 
     public void setProductId(int productId) {
-        this.productId = productId;
+        this.id = productId;
     }
 
     public String getName() {

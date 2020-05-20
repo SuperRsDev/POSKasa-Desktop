@@ -219,5 +219,28 @@ public class PosDAO {
         category.setId(id);
     }
 
+    public void addProduct(Product product) {
+        URL url = null;
+        try {
+            url = new URL("http://localhost:8080/pos/product");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        JSONObject jsonProduct = new JSONObject();
+
+        jsonProduct.put("id", product.getProductId());
+        jsonProduct.put("name", product.getName());
+        jsonProduct.put("stockQuantity", product.getStockQuantity());
+        jsonProduct.put("status", product.getStatus());
+        jsonProduct.put("description", product.getDescription());
+        jsonProduct.put("unitPrice", product.getUnitPrice());
+        jsonProduct.put("sellingPrice", product.getSellingPrice());
+        jsonProduct.put("categoryId", product.getCategory().getId());
+        System.out.println(url + "    dgfsdf ");
+        int id = addViaHttp(jsonProduct, url);
+        product.setProductId(id);
+    }
+
+
 
 }
