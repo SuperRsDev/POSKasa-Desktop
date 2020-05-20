@@ -202,5 +202,22 @@ public class PosDAO {
         return jsonObjectReturn.getInt("id");
     }
 
+    public void addCategory(Category category) {
+        URL url = null;
+        try {
+            url = new URL("http://localhost:8080/pos/category");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        JSONObject jsonCategory = new JSONObject();
+
+        jsonCategory.put("id", category.getId());
+        jsonCategory.put("name", category.getName());
+        jsonCategory.put("description", category.getDescription());
+
+        int id = addViaHttp(jsonCategory, url);
+        category.setId(id);
+    }
+
 
 }

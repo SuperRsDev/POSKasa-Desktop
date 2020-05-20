@@ -1,6 +1,7 @@
 package ba.unsa.etf.nrs;
 
 import ba.unsa.etf.nrs.Contollers.GlavnaController;
+import ba.unsa.etf.nrs.DataClasses.Category;
 import ba.unsa.etf.nrs.DataClasses.User;
 import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import javafx.application.Application;
@@ -26,11 +27,11 @@ public class Main extends Application {
         primaryStage.show();*/
 
         PosDAO dao = PosDAO.getInstance();
-        User user = new User("Neko", "Nekic", "nnekic1", "password", "nnekic1@etf.unsa.ba", "061222333", "Neka adresa 167", "User-mapping.png", LocalDate.now(), "loginProvider");
-        dao.addUser(user);
-        ArrayList<User> users = dao.users();
-        for (int i = 0; i < users.size(); i++) {
-            System.out.println(users.get(i) + "\n");
+        Category category = new Category("slatkisi", "opis");
+        dao.addCategory(category);
+        ArrayList<Category> categories = dao.categories();
+        for (int i = 0; i < categories.size(); i++) {
+            System.out.println(categories.get(i) + "\n");
         }
 
     }
