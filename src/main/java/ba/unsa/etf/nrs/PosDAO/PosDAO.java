@@ -220,6 +220,46 @@ public class PosDAO {
         return paymentType;
     }
 
+
+    public Order getOrder(int id) {
+        URL url = null;
+        Order order = null;
+        try {
+            url = new URL("http://localhost:8080/pos/order/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            String json = "", line = "";
+            while ((line = entry.readLine()) != null) {
+                json = json + line;
+            }
+            if (json.isEmpty()) return null;
+            JSONObject jo = new JSONObject(json);
+            LocalDate date = LocalDate.parse(jo.getString("date"), formatter);
+            order = new Order(jo.getInt("id"), getUser(jo.getInt("employeeId")), getPaymentType(jo.getInt("paymentTypeId")), date, jo.getString("status"), jo.getString("orderType"));
+        } catch (IOException e) {
+            new NoInternetException();
+        }
+        return order;
+    }
+
+
+    public ArrayList<Order> getOrders() {
+        ArrayList<Order> result = new ArrayList<>();
+        JSONArray jsonArray = connectToURL("orders");
+        if (jsonArray == null) return null;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jo = jsonArray.getJSONObject(i);
+            LocalDate date = LocalDate.parse(jo.getString("date"), formatter);
+            Order order = new Order(jo.getInt("id"), getUser(jo.getInt("employeeId")), getPaymentType(jo.getInt("paymentTypeId")), date, jo.getString("status"), jo.getString("orderType"));
+            result.add(order);
+        }
+        return result;
+    }
+
+
     public ArrayList<Integer> getSubTotals(int orderId) {
         ArrayList<Integer> result = new ArrayList<>();
         JSONArray jsonArray = connectToURL("subTotals/" + orderId);
