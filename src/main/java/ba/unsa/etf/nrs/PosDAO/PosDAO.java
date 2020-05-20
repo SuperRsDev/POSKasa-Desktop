@@ -25,7 +25,7 @@ public class PosDAO {
     private static PosDAO instance;
     private static Connection conn;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
-
+//Todo: u bazu ubaci date kao null (pogledati npr na ruti /pos/orders) - to treba formatirati ispravno i riješiti
     public static PosDAO getInstance() {
         if(instance == null) instance = new PosDAO();
         return instance;
@@ -196,6 +196,29 @@ public class PosDAO {
         return result;
     }
 
+
+    public PaymentType getPaymentType(int id) {
+        URL url = null;
+        PaymentType paymentType = null;
+        try {
+            url = new URL("http://localhost:8080/pos/paymentType/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            String json = "", line = "";
+            while ((line = entry.readLine()) != null) {
+                json = json + line;
+            }
+            if (json.isEmpty()) return null;
+            JSONObject jo = new JSONObject(json);
+            paymentType = new PaymentType(jo.getInt("id"), jo.getString("paymentTypeProvider"), jo.getString("description"));
+        } catch (IOException e) {
+            new NoInternetException();
+        }
+        return paymentType;
+    }
 
     public ArrayList<Integer> getSubTotals(int orderId) {
         ArrayList<Integer> result = new ArrayList<>();
