@@ -1,9 +1,6 @@
 package ba.unsa.etf.nrs.PosDAO;
 
-import ba.unsa.etf.nrs.DataClasses.Category;
-import ba.unsa.etf.nrs.DataClasses.POS;
-import ba.unsa.etf.nrs.DataClasses.Product;
-import ba.unsa.etf.nrs.DataClasses.User;
+import ba.unsa.etf.nrs.DataClasses.*;
 import ba.unsa.etf.nrs.NoInternetException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -161,6 +158,31 @@ public class PosDAO {
         return result;
     }
 
+    public User getUser(int id) {
+        URL url = null;
+        User user = null;
+        try {
+            url = new URL("http://localhost:8080/pos/user/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            String json = "", line = "";
+            while ((line = entry.readLine()) != null) {
+                json = json + line;
+            }
+            if (json.isEmpty()) return null;
+            JSONObject jo = new JSONObject(json);
+            LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
+            user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"), jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"), jo.getString("picture"), date, jo.getString("loginProvider"));
+        } catch (IOException e) {
+            new NoInternetException();
+        }
+        return user;
+    }
+
+
     public ArrayList<User> getUsers() {
         ArrayList<User> result = new ArrayList<>();
         JSONArray jsonArray = connectToURL("users");
@@ -173,6 +195,7 @@ public class PosDAO {
         }
         return result;
     }
+
 
     public ArrayList<Integer> getSubTotals(int orderId) {
         ArrayList<Integer> result = new ArrayList<>();

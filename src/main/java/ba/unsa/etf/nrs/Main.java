@@ -40,8 +40,8 @@ public class Main extends Application {
         }
 
         POS pos = new POS(order, totalSum, 1234);
-
-        dao.addPos(pos);
+        System.out.println(dao.getUser(1));
+        //dao.addPos(pos);
 
 
     }
