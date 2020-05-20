@@ -32,6 +32,19 @@ public class User {
         this.loginProvider = loginProvider;
     }
 
+    public User(String firstName, String lastName, String username, String password, String email, String phone, String address, String picture, LocalDate birthDate, String loginProvider) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.picture = picture;
+        this.birthDate = birthDate;
+        this.loginProvider = loginProvider;
+    }
+
     public int getId() {
         return id;
     }

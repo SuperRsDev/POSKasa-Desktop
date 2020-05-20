@@ -8,8 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -51,8 +53,9 @@ public class PosDAO {
 
     private PosDAO() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/dbnrs_pos20", "root", "");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3308/dbnrs_pos20?useSSL=false"; //podložno promjenama shodno koji port koristi server
+            conn = DriverManager.getConnection(url, "root", "");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -144,6 +147,59 @@ public class PosDAO {
             result.add(user);
         }
         return result;
+    }
+
+    //POST zahtjevi
+
+    public void addUser(User user) {
+        URL url = null;
+        try {
+            url = new URL("http://localhost:8080/pos/user");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        JSONObject jsonUser = new JSONObject();
+        jsonUser.put("id", user.getId());
+        jsonUser.put("firstName", user.getFirstName());
+        jsonUser.put("lastName", user.getLastName());
+        jsonUser.put("username", user.getUsername());
+        jsonUser.put("password", user.getPassword());
+        jsonUser.put("email", user.getEmail());
+        jsonUser.put("phone", user.getPhone());
+        jsonUser.put("address", user.getAddress());
+        jsonUser.put("picture", user.getPicture());
+        jsonUser.put("birthDate", user.getBirthDate());
+        jsonUser.put("loginProvider", user.getLoginProvider());
+
+        int id = addViaHttp(jsonUser, url);
+        user.setId(id);
+    }
+
+    private int addViaHttp(JSONObject jsonObject, URL url) {
+        HttpURLConnection con = null;
+        JSONObject jsonObjectReturn = null;
+        try {
+            byte[] data = jsonObject.toString().getBytes();
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setDoOutput(true);
+            DataOutputStream out = new DataOutputStream(con.getOutputStream());
+            out.write(data);
+            out.flush();
+            out.close();
+
+            BufferedReader entry = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String json = "", line = "";
+            while ((line = entry.readLine()) != null) {
+                json = json + line;
+            }
+            jsonObjectReturn = new JSONObject(json);
+            entry.close();
+        } catch (IOException e) {
+            new NoInternetException();
+        }
+        return jsonObjectReturn.getInt("id");
     }
 
 
