@@ -30,19 +30,18 @@ public class Main extends Application {
         Product product = new Product("Čokolada", 50, "dostupan", "mliječna čokolada", 2, 1, category);
 
         User user = new User("Neko", "Nekic2", "nenkic2", "1234", "nnekic2@etf.unsa.ba", "062345678", "Adresa 123", "User-mapping.png", LocalDate.now(), "loginProvider");
-        PaymentType paymentType = new PaymentType("paymentTypeProvider", "description");
-        Order order = new Order(user, paymentType, LocalDate.now(), "status", "orderType");
-
-        Integer totalSum = 0;
-        ArrayList<Integer> subs = dao.getSubTotals(order.getId());
+        dao.addUser(user);
+        Order order = new Order(dao.getUser(1), dao.getPaymentType(1), LocalDate.now(), "status", "orderType");
+        dao.addOrder(order);
+        /*Integer totalSum = 0;
+        ArrayList<Integer> subs = dao.getSubTotals(1);
         for (Integer i:subs) {
             totalSum = totalSum + i;
         }
 
-        POS pos = new POS(order, totalSum, 1234);
-        System.out.println(dao.getUser(1));
-        //dao.addPos(pos);
-
+        POS pos = new POS(dao.getOrder(order.getId()), totalSum, 1234);
+        dao.addPos(pos);*/
+        System.out.println("Ubaceno");
 
     }
 

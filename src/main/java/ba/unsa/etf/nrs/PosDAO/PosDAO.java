@@ -383,6 +383,24 @@ public class PosDAO {
         pos.setId(id);
     }
 
+    public void addOrder(Order order) {
+        URL url = null;
+        try {
+            url = new URL("http://localhost:8080/pos/order");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        JSONObject jsonOrder = new JSONObject();
+        jsonOrder.put("id", order.getId());
+        jsonOrder.put("employeeId", order.getUser().getId());
+        jsonOrder.put("paymentTypeId", order.getPaymentType().getId());
+        jsonOrder.put("date", order.getDate());
+        jsonOrder.put("status", order.getUser().getId());
+
+        int id = addViaHttp(jsonOrder, url);
+        order.setId(id);
+    }
+
 
 
 }
