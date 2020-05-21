@@ -396,6 +396,7 @@ public class PosDAO {
         jsonOrder.put("paymentTypeId", order.getPaymentType().getId());
         jsonOrder.put("date", order.getDate());
         jsonOrder.put("status", order.getUser().getId());
+        jsonOrder.put("orderType", order.getOrderType());
 
         int id = addViaHttp(jsonOrder, url);
         order.setId(id);

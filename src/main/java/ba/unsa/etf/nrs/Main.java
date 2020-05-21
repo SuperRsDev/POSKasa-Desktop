@@ -33,14 +33,14 @@ public class Main extends Application {
         dao.addUser(user);
         Order order = new Order(dao.getUser(1), dao.getPaymentType(1), LocalDate.now(), "status", "orderType");
         dao.addOrder(order);
-        /*Integer totalSum = 0;
+        Integer totalSum = 0;
         ArrayList<Integer> subs = dao.getSubTotals(1);
         for (Integer i:subs) {
             totalSum = totalSum + i;
         }
 
-        POS pos = new POS(dao.getOrder(order.getId()), totalSum, 1234);
-        dao.addPos(pos);*/
+        POS pos = new POS(dao.getOrder(3), totalSum, 1234);
+        dao.addPos(pos);
         System.out.println("Ubaceno");
 
     }
