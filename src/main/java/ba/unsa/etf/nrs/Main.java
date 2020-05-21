@@ -26,8 +26,11 @@ public class Main extends Application {
         primaryStage.show();*/
         PosDAO dao = PosDAO.getInstance();
 
-        Category category = new Category(3, "slatkisi", "opis");
-        Product product = new Product("Čokolada", 50, "dostupan", "mliječna čokolada", 2, 1, category);
+        Category category = new Category( "slatkisi", "opis");
+        dao.addCategory(category);
+
+        Product product = new Product("Čokolada", 50, "dostupan", "mliječna čokolada", 2, 1, dao.getCategory(3));
+        dao.addProduct(product);
 
         User user = new User("Neko", "Nekic2", "nenkic2", "1234", "nnekic2@etf.unsa.ba", "062345678", "Adresa 123", "User-mapping.png", LocalDate.now(), "loginProvider");
         dao.addUser(user);
@@ -44,8 +47,9 @@ public class Main extends Application {
         POS pos = new POS(dao.getOrder(3), totalSum, 1234);
         dao.addPos(pos);
 
-        dao.deleteUser(1);
-        System.out.println("Ubaceno");
+        dao.deleteCategory(1);
+        dao.deleteProduct(1);
+        System.out.println("Obrisano");
 
     }
 

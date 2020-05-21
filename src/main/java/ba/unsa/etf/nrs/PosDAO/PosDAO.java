@@ -467,6 +467,30 @@ public class PosDAO {
         deleteViaHttp(id, url);
     }
 
+    public void deleteCategory(int id) {
+        URL url = null;
+        HttpURLConnection con = null;
+        try {
+            url = new URL("http://localhost:8080/pos/category/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        if (id > getCategories().size()) return;
+        deleteViaHttp(id, url);
+    }
+
+    public void deleteProduct(int id) {
+        URL url = null;
+        HttpURLConnection con = null;
+        try {
+            url = new URL("http://localhost:8080/pos/product/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        if (id > getProducts().size()) return;
+        deleteViaHttp(id, url);
+    }
+
 
 
     /*
