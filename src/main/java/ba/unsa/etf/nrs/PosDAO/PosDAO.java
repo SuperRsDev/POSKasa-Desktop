@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -274,31 +275,9 @@ public class PosDAO {
         return result;
     }
 
-    //POST zahtjevi
-
-    public void addUser(User user) {
-        URL url = null;
-        try {
-            url = new URL("http://localhost:8080/pos/user");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        JSONObject jsonUser = new JSONObject();
-        jsonUser.put("id", user.getId());
-        jsonUser.put("firstName", user.getFirstName());
-        jsonUser.put("lastName", user.getLastName());
-        jsonUser.put("username", user.getUsername());
-        jsonUser.put("password", user.getPassword());
-        jsonUser.put("email", user.getEmail());
-        jsonUser.put("phone", user.getPhone());
-        jsonUser.put("address", user.getAddress());
-        jsonUser.put("picture", user.getPicture());
-        jsonUser.put("birthDate", user.getBirthDate());
-        jsonUser.put("loginProvider", user.getLoginProvider());
-
-        int id = addViaHttp(jsonUser, url);
-        user.setId(id);
-    }
+    /*
+    **************************        POST zahtjevi         ***************************+
+     */
 
     private int addViaHttp(JSONObject jsonObject, URL url) {
         HttpURLConnection con = null;
@@ -325,6 +304,30 @@ public class PosDAO {
             new NoInternetException();
         }
         return jsonObjectReturn.getInt("id");
+    }
+
+    public void addUser(User user) {
+        URL url = null;
+        try {
+            url = new URL("http://localhost:8080/pos/user");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        JSONObject jsonUser = new JSONObject();
+        jsonUser.put("id", user.getId());
+        jsonUser.put("firstName", user.getFirstName());
+        jsonUser.put("lastName", user.getLastName());
+        jsonUser.put("username", user.getUsername());
+        jsonUser.put("password", user.getPassword());
+        jsonUser.put("email", user.getEmail());
+        jsonUser.put("phone", user.getPhone());
+        jsonUser.put("address", user.getAddress());
+        jsonUser.put("picture", user.getPicture());
+        jsonUser.put("birthDate", user.getBirthDate());
+        jsonUser.put("loginProvider", user.getLoginProvider());
+
+        int id = addViaHttp(jsonUser, url);
+        user.setId(id);
     }
 
     public void addCategory(Category category) {
@@ -402,6 +405,72 @@ public class PosDAO {
         order.setId(id);
     }
 
+    public void addProductOrder(Product product, Order order) {
+        URL url = null;
+        try {
+            url = new URL("http://localhost:8080/pos/productOrder");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        JSONObject jsonOrder = new JSONObject();
+        jsonOrder.put("id", order.getId());
+        jsonOrder.put("employeeId", order.getUser().getId());
+        jsonOrder.put("paymentTypeId", order.getPaymentType().getId());
+        jsonOrder.put("date", order.getDate());
+        jsonOrder.put("status", order.getUser().getId());
+        jsonOrder.put("orderType", order.getOrderType());
 
+        int id = addViaHttp(jsonOrder, url);
+        order.setId(id);
+    }
+
+
+    /*
+     **************************        DELETE zahtjevi         ***************************+
+     */
+
+    private void deleteViaHttp (int id, URL url) {
+        HttpURLConnection con = null;
+        try {
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("DELETE");
+            con.setRequestProperty("Content-Type", "application/application/json");
+            con.setDoOutput(true);
+            con.connect();
+            DataOutputStream out = new DataOutputStream(con.getOutputStream());
+            out.write(id);
+            out.flush();
+            out.close();
+
+            BufferedReader entry = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String json = "", line = "";
+            while ((line = entry.readLine()) != null) {
+                json = json + line;
+            }
+            entry.close();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteUser(int id) {
+        URL url = null;
+        HttpURLConnection con = null;
+        try {
+            url = new URL("http://localhost:8080/pos/user/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        if (id > getUsers().size()) return;
+        deleteViaHttp(id, url);
+    }
+
+
+
+    /*
+     **************************        PUT zahtjevi         ***************************+
+     */
 
 }
