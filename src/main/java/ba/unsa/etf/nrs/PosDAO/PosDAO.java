@@ -146,6 +146,29 @@ public class PosDAO {
         return category;
     }
 
+    public Category getCategoryByName(String name) {
+        URL url = null;
+        Category category = null;
+        try {
+            url = new URL("http://localhost:8080/pos/categories/" + name);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            String json = "", line = "";
+            while ((line = entry.readLine()) != null) {
+                json = json + line;
+            }
+            if (json.isEmpty()) return null;
+            JSONObject jo = new JSONObject(json);
+            category = new Category(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
+        } catch (IOException e) {
+            new NoInternetException();
+        }
+        return category;
+    }
+
 
     public ArrayList<Category> getCategories() {
         ArrayList<Category> result = new ArrayList<>();
@@ -183,7 +206,6 @@ public class PosDAO {
         return user;
     }
 
-
     public ArrayList<User> getUsers() {
         ArrayList<User> result = new ArrayList<>();
         JSONArray jsonArray = connectToURL("users");
@@ -196,7 +218,6 @@ public class PosDAO {
         }
         return result;
     }
-
 
     public PaymentType getPaymentType(int id) {
         URL url = null;
@@ -220,7 +241,6 @@ public class PosDAO {
         }
         return paymentType;
     }
-
 
     public Order getOrder(int id) {
         URL url = null;
@@ -246,7 +266,6 @@ public class PosDAO {
         return order;
     }
 
-
     public ArrayList<Order> getOrders() {
         ArrayList<Order> result = new ArrayList<>();
         JSONArray jsonArray = connectToURL("orders");
@@ -259,7 +278,6 @@ public class PosDAO {
         }
         return result;
     }
-
 
     public ArrayList<Integer> getSubTotals(int orderId) {
         ArrayList<Integer> result = new ArrayList<>();
@@ -541,6 +559,26 @@ public class PosDAO {
         userObj.put("birthDate", birthDate);
         userObj.put("loginProvider", loginProvider);
         updateViaHttp(userObj, url);
+    }
+
+    public void updateProduct(int id, String name, int stockQuantity, String status, String description, int unitPrice, int sellingPrice, Category category) {
+        URL url = null;
+        HttpURLConnection con = null;
+        try {
+            url = new URL("http://localhost:8080/pos/product/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        JSONObject productObj = new JSONObject();
+        productObj.put("name", name);
+        productObj.put("stockQuantity", stockQuantity);
+        productObj.put("status", status);
+        productObj.put("description", description);
+        productObj.put("unitPrice", unitPrice);
+        productObj.put("sellingPrice", sellingPrice);
+        productObj.put("categoryId", category.getId());
+
+        updateViaHttp(productObj, url);
     }
 
 }
