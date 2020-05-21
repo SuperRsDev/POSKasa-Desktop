@@ -169,7 +169,6 @@ public class PosDAO {
         return category;
     }
 
-
     public ArrayList<Category> getCategories() {
         ArrayList<Category> result = new ArrayList<>();
         JSONArray jsonArray = connectToURL("categories");
@@ -291,6 +290,32 @@ public class PosDAO {
             result.add(subTotalForOneProduct);
         }
         return result;
+    }
+
+    public String getUserRole(String username) {
+        URL url = null;
+        String role = null;
+        try {
+            url = new URL("http://localhost:8080/pos/userrole/" + username);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            String json = "", line = "", json1 = "";
+            while ((line = entry.readLine()) != null) {
+                    json = json + line;
+            }
+            if(json.contains("[") && json.contains("]")) {
+               json1 = json.substring(1, json.length()-1);
+            }
+            if (json1.isEmpty()) return null;
+            JSONObject jo = new JSONObject(json1);
+            role = jo.getString("name");
+        } catch (IOException e) {
+            new NoInternetException();
+        }
+        return role;
     }
 
     /*
@@ -580,5 +605,31 @@ public class PosDAO {
 
         updateViaHttp(productObj, url);
     }
+
+    public boolean loginValid(String username, String password) {
+        URL url = null;
+        JSONObject object = null;
+        try {
+            url = new URL("http://localhost:8080/pos/user/" + username + "/" + password);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            String json = "", line = "";
+            while ((line = entry.readLine()) != null) {
+                json = json + line;
+            }
+            if (json.isEmpty()) return false;
+            //JSONObject jo = new JSONObject(json);
+            String role = getUserRole(username);
+            if (role != null && role.equals("radnik")) return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+
 
 }

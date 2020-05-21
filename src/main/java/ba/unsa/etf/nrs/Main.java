@@ -47,8 +47,8 @@ public class Main extends Application {
         POS pos = new POS(dao.getOrder(3), totalSum, 1234);
         dao.addPos(pos);*/
 
-        dao.updateProduct(2, "Čokolada", 49, "dostupan", "mliječna čokolada", 2, 1, dao.getCategoryByName("Hrana"));
-        System.out.println("Ažurirano");
+        //dao.updateProduct(2, "Čokolada", 49, "dostupan", "mliječna čokolada", 2, 1, dao.getCategoryByName("Hrana"));
+        System.out.println(dao.loginValid("apozegija1", "amraamra"));
 
     }
 
