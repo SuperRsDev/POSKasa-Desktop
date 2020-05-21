@@ -25,7 +25,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();*/
         PosDAO dao = PosDAO.getInstance();
-
+/*
         Category category = new Category( "slatkisi", "opis");
         dao.addCategory(category);
 
@@ -45,12 +45,10 @@ public class Main extends Application {
         }
 
         POS pos = new POS(dao.getOrder(3), totalSum, 1234);
-        dao.addPos(pos);
+        dao.addPos(pos);*/
 
-        dao.deleteCategory(1);
-        dao.deleteProduct(1);
-        System.out.println("Obrisano");
-
+        dao.updateUser(2,"Neko", "Neki", "nenkic2", "1234", "nnekic2@etf.unsa.ba", "062345678", "Adresa 123", "User-mapping.png", LocalDate.now(), "loginProvider");
+        System.out.println("Ažurirano");
     }
 
 

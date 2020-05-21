@@ -492,9 +492,55 @@ public class PosDAO {
     }
 
 
-
     /*
      **************************        PUT zahtjevi         ***************************+
      */
+
+    private void updateViaHttp (JSONObject jo, URL url) {
+        HttpURLConnection con = null;
+        try {
+            byte[] data = jo.toString().getBytes();
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("PUT");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setDoOutput(true);
+            con.connect();
+            DataOutputStream out = new DataOutputStream(con.getOutputStream());
+            out.write(data);
+            out.flush();
+            out.close();
+
+            BufferedReader entry = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String json = "", line = "";
+            while ((line = entry.readLine()) != null) {
+                json = json + line;
+            }
+            entry.close();
+        } catch (IOException e) {
+            new NoInternetException();
+        }
+    }
+
+    public void updateUser(int id, String firstName, String lastName, String username, String password, String email, String phone, String address, String picture, LocalDate birthDate, String loginProvider) {
+        URL url = null;
+        HttpURLConnection con = null;
+        try {
+            url = new URL("http://localhost:8080/pos/user/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        JSONObject userObj = new JSONObject();
+        userObj.put("firstName", firstName);
+        userObj.put("lastName", lastName);
+        userObj.put("username", username);
+        userObj.put("password", password);
+        userObj.put("email", email);
+        userObj.put("phone", phone);
+        userObj.put("address", address);
+        userObj.put("picture", picture);
+        userObj.put("birthDate", birthDate);
+        userObj.put("loginProvider", loginProvider);
+        updateViaHttp(userObj, url);
+    }
 
 }
