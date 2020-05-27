@@ -1,6 +1,7 @@
 package ba.unsa.etf.nrs;
 
 import ba.unsa.etf.nrs.Contollers.GlavnaController;
+import ba.unsa.etf.nrs.Contollers.LoginController;
 import ba.unsa.etf.nrs.DataClasses.*;
 import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import javafx.application.Application;
@@ -11,21 +12,20 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
-        GlavnaController ctrl = new GlavnaController();
-        loader.setController(ctrl);
-        Parent root = loader.load();
-        primaryStage.setTitle("POS Kasa");
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"), bundle);
+        primaryStage.setTitle("POS");
         primaryStage.setScene(new Scene(root));
-        primaryStage.show();*/
-        PosDAO dao = PosDAO.getInstance();
-/*
+        primaryStage.setResizable(false);
+        primaryStage.show();
+/*        PosDAO dao = PosDAO.getInstance();
+
         Category category = new Category( "slatkisi", "opis");
         dao.addCategory(category);
 
@@ -45,11 +45,11 @@ public class Main extends Application {
         }
 
         POS pos = new POS(dao.getOrder(3), totalSum, 1234);
-        dao.addPos(pos);*/
+        dao.addPos(pos);
 
         //dao.updateProduct(2, "Čokolada", 49, "dostupan", "mliječna čokolada", 2, 1, dao.getCategoryByName("Hrana"));
         System.out.println(dao.loginValid("apozegija1", "amraamra"));
-
+*/
     }
 
 

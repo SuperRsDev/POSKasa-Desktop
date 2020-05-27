@@ -26,7 +26,7 @@ public class PosDAO {
     private static PosDAO instance;
     private static Connection conn;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
-//Todo: u bazu ubaci date kao null (pogledati npr na ruti /pos/orders) - to treba formatirati ispravno i riješiti
+
     public static PosDAO getInstance() {
         if(instance == null) instance = new PosDAO();
         return instance;
@@ -629,7 +629,4 @@ public class PosDAO {
         }
         return true;
     }
-
-
-
 }

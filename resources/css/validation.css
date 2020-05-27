@@ -1,0 +1,6 @@
+.ok {
+    -fx-control-inner-background: lime;
+}
+.notOk {
+    -fx-control-inner-background: orangered;
+}

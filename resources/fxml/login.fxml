@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane prefHeight="195.0" prefWidth="314.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="gridId" prefHeight="195.0" prefWidth="302.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.nrs.Contollers.LoginController">
+    <stylesheets>
+        <URL value="@/css/validation.css" />
+    </stylesheets>
     <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
         <RowConstraints />
         <RowConstraints maxHeight="52.79999900124293" minHeight="11.272726864460132" prefHeight="43.16363521355247" />
         <RowConstraints maxHeight="45.45454389556382" minHeight="3.054544516319119" prefHeight="40.03636245601437" />
         <RowConstraints maxHeight="45.45454389556382" minHeight="10.0" prefHeight="36.436362788933394" />
+      <RowConstraints maxHeight="45.45454389556382" minHeight="10.0" prefHeight="36.436362788933394" />
         <RowConstraints maxHeight="45.45454389556382" minHeight="0.0" prefHeight="4.581817606776241" />
     </rowConstraints>
     <columnConstraints>
@@ -21,42 +28,58 @@
 
     </columnConstraints>
     <children>
-        <Label text="Korisnik:" GridPane.rowIndex="1">
+        <Label text="%Korisnik:" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets left="20.0" top="10.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Rounded MT Bold" size="12.218181610107422" />
             </font></Label>
-      <Button mnemonicParsing="false" text="X" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <Label text="Lozinka:" GridPane.rowIndex="2">
+      <Button fx:id="btnDeleteUsername" mnemonicParsing="false" onAction="#deleteUsernameTextAction" text="X" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label text="%Lozinka:" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets left="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Rounded MT Bold" size="12.218181610107422" />
             </font></Label>
-        <Button mnemonicParsing="false" text="X" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-        <TextField promptText="Korisničko ime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <TextField prefWidth="154.0" promptText="Loznika" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" text="Izađi" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Button fx:id="btnDeletePassword" mnemonicParsing="false" onAction="#deletePasswordTextAction" text="X" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <TextField fx:id="fldUsername" promptText="%Korisnicko_ime" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <PasswordField fx:id="fldPassword" prefWidth="154.0" promptText="%Loznika" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exitAction" prefHeight="27.0" prefWidth="70.0" text="%Izadji" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets bottom="20.0" left="20.0" top="30.0" />
             </GridPane.margin>
         </Button>
-        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="77.0" text="Prijavi se" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+        <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#loginAction" prefHeight="27.0" prefWidth="77.0" text="%Prijavi_se" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets bottom="20.0" top="30.0" />
             </GridPane.margin>
         </Button>
-        <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="280.0" text="         Prijavite se !" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+        <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="280.0" text="%Prijavite_se!" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
                 <Font name="Arial Bold" size="22.0" />
             </font>
             <GridPane.margin>
-                <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
             </GridPane.margin>
         </Label>
+      <ImageView fx:id="enFlagImg" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+         <image>
+            <Image url="@../img/flag-button-round-250.png" />
+         </image>
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </ImageView>
+      <ImageView fx:id="bsFlagImg" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+         <image>
+            <Image url="@../img/bihflag.png" />
+         </image>
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </ImageView>
 
     </children>
 </GridPane>
