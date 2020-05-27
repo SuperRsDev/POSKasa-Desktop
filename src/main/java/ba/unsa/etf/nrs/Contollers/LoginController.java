@@ -43,7 +43,7 @@ public class LoginController {
     @FXML
     public void initialize() {
         dao = PosDAO.getInstance();
-
+        btnLogin.setDefaultButton(true);
         bsFlagImg.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             bosnian = true;
             choosen = true;

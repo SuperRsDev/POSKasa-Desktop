@@ -25,7 +25,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" text="%Delete" />
                </items>
                <graphic>
                   <Label alignment="TOP_LEFT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="23.0" prefWidth="561.0" text="POS">
@@ -36,7 +36,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Bosanski" />
+                  <MenuItem mnemonicParsing="false" text="%Bosanski" />
                </items>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
@@ -48,7 +48,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="English" />
+                  <MenuItem mnemonicParsing="false" text="%Engleski" />
                </items>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
@@ -60,8 +60,8 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Uredi profil" />
-                  <MenuItem mnemonicParsing="false" text="Odjava"/>
+                  <MenuItem mnemonicParsing="false" text="%Uredi_profil" />
+                  <MenuItem mnemonicParsing="false" text="%Odjava"/>
                </items>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -79,7 +79,7 @@
          <children>
             <HBox prefHeight="29.0" prefWidth="157.0" style="-fx-background-color: white;">
                <children>
-                  <TextArea maxHeight="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="107.0" promptText="Pretrazi:" />
+                  <TextArea maxHeight="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="107.0" promptText="%Pretrazi:" />
                   <Button mnemonicParsing="false">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
@@ -111,19 +111,15 @@
             </HBox>
             <VBox alignment="BOTTOM_LEFT" prefHeight="106.0" prefWidth="157.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" text="Kategorija">
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" text="%Kategorija">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin></Button>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="161.0" text="Kategorija">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin></Button>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: lightgreen;" text="Dodaj kategoriju">
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: lightgreen;" text="%Dodaj_kategoriju">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin></Button>
-                  <Label text="Datum:">
+                  <Label text="%Datum:">
                      <VBox.margin>
                         <Insets left="20.0" top="40.0" />
                      </VBox.margin>
@@ -131,7 +127,7 @@
                         <Font name="Arial Rounded MT Bold" size="12.218181610107422" />
                      </font>
                   </Label>
-                  <Label text="Vrijeme:">
+                  <Label text="%Vrijeme:">
                      <VBox.margin>
                         <Insets left="20.0" top="10.0" />
                      </VBox.margin>
@@ -150,7 +146,7 @@
    <right>
       <VBox prefHeight="375.0" prefWidth="160.0" style="-fx-background-color: #3895D3;" BorderPane.alignment="CENTER">
          <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="Pregled uposlenika">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Pregled_uposlenika">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -161,7 +157,7 @@
                   <Font name="Arial Black" size="12.218181610107422" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="78.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="Izvještaji o najprodavanijim artiklima" textAlignment="CENTER" wrapText="true">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="78.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Izvjestaji_o_najprodavanijim_artiklima" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -172,7 +168,7 @@
                   <Font name="Arial Black" size="12.218181610107422" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="76.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="Izvještaji o stanju artikala" textAlignment="CENTER" wrapText="true">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="76.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Izvjestaji_o_stanju_artikala" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -183,7 +179,7 @@
                   <Font name="Arial Black" size="12.218181610107422" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="66.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="Izvještaji o narudžbama" textAlignment="CENTER" wrapText="true">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="66.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Izvjestaji_o_narudzbama" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -214,14 +210,14 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Kategorija 1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+            <Label text="%Kategorija1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font></Label>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="132.0" style="-fx-background-color: lightgreen" text="Dodaj artikal" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="132.0" style="-fx-background-color: lightgreen" text="%Dodaj_artikal" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
