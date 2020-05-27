@@ -34,7 +34,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem onAction="#bosanski" mnemonicParsing="false" text="%Bosanski" />
+                  <MenuItem mnemonicParsing="false" onAction="#bosanski" text="%Bosanski" />
                </items>
                <graphic>
                   <ImageView fx:id="bsFlagImg" fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
@@ -46,7 +46,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem onAction="#engleski" mnemonicParsing="false" text="%Engleski" />
+                  <MenuItem mnemonicParsing="false" onAction="#engleski" text="%Engleski" />
                </items>
                <graphic>
                   <ImageView fx:id="enFlagImg" fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
@@ -113,11 +113,11 @@
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin></Button>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: lightgreen;" text="%Dodaj_kategoriju">
+                  <Button fx:id="btnAddCategory" mnemonicParsing="false" onAction="#addCategoryAction" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: lightgreen;" text="%Dodaj_kategoriju">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin></Button>
-                  <Label text="%Datum:">
+                  <Label fx:id="lblDate" text="%Datum:">
                      <VBox.margin>
                         <Insets left="20.0" top="40.0" />
                      </VBox.margin>
@@ -125,7 +125,7 @@
                         <Font name="Arial Rounded MT Bold" size="12.218181610107422" />
                      </font>
                   </Label>
-                  <Label text="%Vrijeme:">
+                  <Label fx:id="lblTime" text="%Vrijeme:">
                      <VBox.margin>
                         <Insets left="20.0" top="10.0" />
                      </VBox.margin>
@@ -215,7 +215,7 @@
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font></Label>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="132.0" style="-fx-background-color: lightgreen" text="%Dodaj_artikal" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <Button fx:id="btnAddProduct" mnemonicParsing="false" onAction="#addProductAction" prefHeight="60.0" prefWidth="132.0" style="-fx-background-color: lightgreen" text="%Dodaj_artikal" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
