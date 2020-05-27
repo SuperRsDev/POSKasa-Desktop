@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="781.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="idPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="781.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.nrs.Contollers.GlavnaController">
    <top>
       <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="36.0" prefWidth="753.0" style="-fx-background-color: #1261A0; -fx-border-color: black;" BorderPane.alignment="CENTER">
          <menus>
@@ -24,9 +24,7 @@
                </graphic>
             </Menu>
             <Menu mnemonicParsing="false">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="%Delete" />
-               </items>
+
                <graphic>
                   <Label alignment="TOP_LEFT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="23.0" prefWidth="561.0" text="POS">
                      <font>
@@ -36,10 +34,10 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="%Bosanski" />
+                  <MenuItem onAction="#bosanski" mnemonicParsing="false" text="%Bosanski" />
                </items>
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="bsFlagImg" fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/bihflag.png" />
                      </image>
@@ -48,10 +46,10 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="%Engleski" />
+                  <MenuItem onAction="#engleski" mnemonicParsing="false" text="%Engleski" />
                </items>
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="enFlagImg" fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/flag-button-round-250.png" />
                      </image>
@@ -61,7 +59,7 @@
             <Menu mnemonicParsing="false">
                <items>
                   <MenuItem mnemonicParsing="false" text="%Uredi_profil" />
-                  <MenuItem mnemonicParsing="false" text="%Odjava"/>
+                  <MenuItem mnemonicParsing="false" text="%Odjava" />
                </items>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -157,7 +155,7 @@
                   <Font name="Arial Black" size="12.218181610107422" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="78.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Izvjestaji_o_najprodavanijim_artiklima" textAlignment="CENTER" wrapText="true">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="78.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Artikli" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -168,7 +166,7 @@
                   <Font name="Arial Black" size="12.218181610107422" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="76.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Izvjestaji_o_stanju_artikala" textAlignment="CENTER" wrapText="true">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="76.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Stanja" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -179,7 +177,7 @@
                   <Font name="Arial Black" size="12.218181610107422" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="66.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Izvjestaji_o_narudzbama" textAlignment="CENTER" wrapText="true">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="66.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Narudzbe" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>

@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"), bundle);
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/glavna.fxml"), bundle);
         primaryStage.setTitle("POS");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
