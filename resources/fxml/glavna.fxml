@@ -107,15 +107,15 @@
                   <Insets right="100.0" />
                </opaqueInsets>
             </HBox>
-            <VBox alignment="BOTTOM_LEFT" prefHeight="106.0" prefWidth="157.0">
+            <VBox fx:id="vboxCategories" alignment="BOTTOM_LEFT" prefHeight="106.0" prefWidth="157.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" text="%Kategorija">
+                  <Button fx:id="btnAllProducts" mnemonicParsing="false" onAction="#allProductsAction" prefHeight="25.0" prefWidth="158.0" text="%Sve_kategorije">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                      </VBox.margin></Button>
                   <Button fx:id="btnAddCategory" mnemonicParsing="false" onAction="#addCategoryAction" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: lightgreen;" text="%Dodaj_kategoriju">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                      </VBox.margin></Button>
                   <Label fx:id="lblDate" text="%Datum:">
                      <VBox.margin>
@@ -134,6 +134,9 @@
                      </font>
                   </Label>
                </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
             </VBox>
          </children>
          <BorderPane.margin>
@@ -208,7 +211,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="%Kategorija1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+            <Label fx:id="idCategoryName" text="%Kategorija1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>

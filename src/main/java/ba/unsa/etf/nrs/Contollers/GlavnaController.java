@@ -1,5 +1,6 @@
 package ba.unsa.etf.nrs.Contollers;
 
+import ba.unsa.etf.nrs.DataClasses.Category;
 import ba.unsa.etf.nrs.DataClasses.Product;
 import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import javafx.application.Platform;
@@ -7,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -51,6 +54,8 @@ public class GlavnaController {
     public MenuItem mItemEdit;
     public MenuItem mItemLogOut;
     public GridPane idGridProducts;
+    public VBox vboxCategories;
+    public Label idCategoryName;
 
     public GlavnaController(String username, String password) {
         this.username = username;
@@ -81,26 +86,42 @@ public class GlavnaController {
         });
         timerThread.start();
 
-        String buttonCssProps = "-fx-pref-height:60.0; -fx-pref-width:132.0;";
-        ArrayList<Product> products = dao.getProducts();
-       List<Button> buttonList = new ArrayList<>();
-        for (Product p : products) {
-            Button button = new Button(p.getName() + ": " + p.getSellingPrice() + "KM");
-            buttonList.add(button);
+        // dodavanje artikala iz baze za kategoriju
+        showAllProductsFromDb();
+
+        //dodavanje kategorija iz baze
+
+        String categoryButtonCssProps = "-fx-pref-height:25.0; -fx-pref-width:158.0;";
+        ArrayList<Category> categories = dao.getCategories();
+        idCategoryName.setText(categories.get(0).getName());
+
+        List<Button> categoryButtonList = new ArrayList<>();
+        for (Category c : categories) {
+            Button button = new Button(c.getName());
+            categoryButtonList.add(button);
         }
 
-        int k = 0;
-        for(int i = 1; i < 3; i++) {
-            for (int j = 1; j < 3; j++) {
-                if(k >= buttonList.size()) break;
-                buttonList.get(k).setStyle(buttonCssProps);
-                buttonList.get(k).setWrapText(true);
-                buttonList.get(k).setTextAlignment(TextAlignment.valueOf("CENTER"));
-                idGridProducts.add(buttonList.get(k), j, i);
-                k++;
+        for(int i = 0; i < categoryButtonList.size(); i++) {
+            categoryButtonList.get(i).setStyle(categoryButtonCssProps);
+            categoryButtonList.get(i).setWrapText(true);
+            categoryButtonList.get(i).setTextAlignment(TextAlignment.valueOf("CENTER"));
+            categoryButtonList.get(i).setOnAction(getProductsForCategory(categories.get(i)));
+            vboxCategories.getChildren().add(1, categoryButtonList.get(i));
+        }
+
+    }
+
+    private EventHandler<ActionEvent> getProductsForCategory(Category category) {
+        return new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                ArrayList<Product> products = dao.getProductsForCategory(category);
+                for (Product p: products
+                     ) {
+                    System.out.println(p.getName() + " dgfd ");
+                }
             }
-        }
-
+        };
     }
 
     private void openGlavna() {
@@ -238,5 +259,33 @@ public class GlavnaController {
             e.printStackTrace();
         }
     }*/
+
+    public void allProductsAction(ActionEvent actionEvent) {
+        showAllProductsFromDb();
+    }
+
+    private void showAllProductsFromDb() {
+        // dodavanje artikala iz baze za kategoriju
+
+        String buttonCssProps = "-fx-pref-height:60.0; -fx-pref-width:132.0;";
+        ArrayList<Product> products = dao.getProducts();
+        List<Button> buttonList = new ArrayList<>();
+        for (Product p : products) {
+            Button button = new Button(p.getName() + ": " + p.getSellingPrice() + "KM");
+            buttonList.add(button);
+        }
+
+        int k = 0;
+        for(int i = 1; i < 3; i++) {
+            for (int j = 1; j < 3; j++) {
+                if(k >= buttonList.size()) break;
+                buttonList.get(k).setStyle(buttonCssProps);
+                buttonList.get(k).setWrapText(true);
+                buttonList.get(k).setTextAlignment(TextAlignment.valueOf("CENTER"));
+                idGridProducts.add(buttonList.get(k), j, i);
+                k++;
+            }
+        }
+    }
 
 }
