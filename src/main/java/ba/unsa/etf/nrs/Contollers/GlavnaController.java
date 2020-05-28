@@ -49,6 +49,8 @@ public class GlavnaController {
     public Button btnArticalReport;
     public Button btnStatusReport;
     public Button btnOrders;
+    public MenuItem mItemEdit;
+    public MenuItem mItemLogOut;
 
     public GlavnaController(String username, String password) {
         this.username = username;
@@ -179,5 +181,41 @@ public class GlavnaController {
             e.printStackTrace();
         }
     }
+
+
+    public void logOutAction(ActionEvent actionEvent) {
+        try {
+            Stage stage = (Stage) idPane.getScene().getWindow();
+            stage.close();
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"), bundle);
+            Parent root = fxmlLoader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("title"));
+            newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+/*
+    public void editProfileAction(ActionEvent actionEvent) {
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
+            DodajKorisnikaController ctrl = new DodajKorisnikaController(dao.getUserByUsername(username));
+            fxmlLoader.setController(ctrl);
+            Parent root = fxmlLoader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_korisnika"));
+            newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
 
 }

@@ -58,8 +58,8 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem mnemonicParsing="false" text="%Uredi_profil" />
-                  <MenuItem mnemonicParsing="false" text="%Odjava" />
+                  <MenuItem fx:id="mItemEdit" mnemonicParsing="false" text="%Uredi_profil" />
+                  <MenuItem fx:id="mItemLogOut" mnemonicParsing="false" onAction="#logOutAction" text="%Odjava" />
                </items>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
