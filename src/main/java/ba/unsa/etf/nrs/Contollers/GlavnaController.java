@@ -1,5 +1,6 @@
 package ba.unsa.etf.nrs.Contollers;
 
+import ba.unsa.etf.nrs.DataClasses.Product;
 import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -24,10 +26,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -51,6 +50,7 @@ public class GlavnaController {
     public Button btnOrders;
     public MenuItem mItemEdit;
     public MenuItem mItemLogOut;
+    public GridPane idGridProducts;
 
     public GlavnaController(String username, String password) {
         this.username = username;
@@ -80,6 +80,27 @@ public class GlavnaController {
             }
         });
         timerThread.start();
+
+        String buttonCssProps = "-fx-pref-height:60.0; -fx-pref-width:132.0;";
+        ArrayList<Product> products = dao.getProducts();
+       List<Button> buttonList = new ArrayList<>();
+        for (Product p : products) {
+            Button button = new Button(p.getName() + ": " + p.getSellingPrice() + "KM");
+            buttonList.add(button);
+        }
+
+        int k = 0;
+        for(int i = 1; i < 3; i++) {
+            for (int j = 1; j < 3; j++) {
+                if(k >= buttonList.size()) break;
+                buttonList.get(k).setStyle(buttonCssProps);
+                buttonList.get(k).setWrapText(true);
+                buttonList.get(k).setTextAlignment(TextAlignment.valueOf("CENTER"));
+                idGridProducts.add(buttonList.get(k), j, i);
+                k++;
+            }
+        }
+
     }
 
     private void openGlavna() {
