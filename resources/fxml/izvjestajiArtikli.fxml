@@ -22,7 +22,7 @@
          <GridPane.margin>
             <Insets left="40.0" />
          </GridPane.margin></ChoiceBox>
-      <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="89.0" text="Štampaj" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+      <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="89.0" text="%Stampaj" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
          <GridPane.margin>
             <Insets right="50.0" />
          </GridPane.margin>
@@ -33,27 +33,27 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Nazad" GridPane.rowIndex="3">
+      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="%Nazad" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="50.0" />
          </GridPane.margin>
       </Button>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <buttons>
-          <Button mnemonicParsing="false" text="Danas" />
-            <Button mnemonicParsing="false" text="7 dana" />
-            <Button mnemonicParsing="false" text="30 dana" />
+          <Button mnemonicParsing="false" text="%Danas" />
+            <Button mnemonicParsing="false" text="%7dana" />
+            <Button mnemonicParsing="false" text="%30dana" />
         </buttons>
          <GridPane.margin>
             <Insets right="50.0" />
          </GridPane.margin>
       </ButtonBar>
-      <DatePicker GridPane.rowIndex="2" promptText="Od">
+      <DatePicker GridPane.rowIndex="2" promptText="%Od">
          <GridPane.margin>
             <Insets left="80.0" />
          </GridPane.margin>
       </DatePicker>
-      <DatePicker GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" promptText="Do">
+      <DatePicker GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" promptText="%Do">
          <GridPane.margin>
             <Insets right="80.0" />
          </GridPane.margin>

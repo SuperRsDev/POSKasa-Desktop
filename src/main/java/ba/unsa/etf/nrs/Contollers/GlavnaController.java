@@ -43,11 +43,26 @@ public class GlavnaController {
     public Label lblDate;
     public Label lblTime;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private String password;
+    private String username;
+    public Button btnEmployees;
+    public Button btnArticalReport;
+    public Button btnStatusReport;
+    public Button btnOrders;
+
+    public GlavnaController(String username, String password) {
+        this.username = username;
+        this.password = password;
+
+    }
+
     @FXML
     public void initialize() {
         dao = dao.getInstance();
         lblDate.setText(LocalDate.now().format(formatter));
-
+        if (dao.getUserRole(username).equals("menadzer")) {
+            btnEmployees.setDisable(true);
+        }
         Thread timerThread = new Thread(() -> {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
             while (true) {
@@ -65,12 +80,14 @@ public class GlavnaController {
         timerThread.start();
     }
 
-    private void openLogin() {
+    private void openGlavna() {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
+            GlavnaController ctrl = new GlavnaController(username, password);
+            fxmlLoader.setController(ctrl);
             Stage stage = (Stage) idPane.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader( getClass().getResource("/fxml/glavna.fxml" ), bundle);
-            stage.setScene(new Scene(loader.load()));
+            stage.setScene(new Scene(fxmlLoader.load()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,14 +97,14 @@ public class GlavnaController {
         bosnian = true;
         choosen = true;
         Locale.setDefault(new Locale("bs", "BA"));
-        openLogin();
+        openGlavna();
     }
 
     public void engleski(ActionEvent actionEvent) {
         Locale.setDefault(new Locale("en", "US"));
         bosnian = false;
         choosen = true;
-        openLogin();
+        openGlavna();
     }
 
     public void addProductAction(ActionEvent actionEvent) {
@@ -120,5 +137,47 @@ public class GlavnaController {
         }
     }
 
+    public void openArticalReportAction(ActionEvent actionEvent) {
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/izvjestajiArtikli.fxml"), bundle);
+            Parent root = fxmlLoader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Izvjestaj"));
+            newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void statusReportAction(ActionEvent actionEvent) {
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/izvjestajiStatus.fxml"), bundle);
+            Parent root = fxmlLoader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Izvjestaj"));
+            newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void orderReportAction(ActionEvent actionEvent) {
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/izvjestajiNarudzbe.fxml"), bundle);
+            Parent root = fxmlLoader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Izvjestaj"));
+            newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

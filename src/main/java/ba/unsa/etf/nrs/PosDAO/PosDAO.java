@@ -623,10 +623,10 @@ public class PosDAO {
             if (json.isEmpty()) return false;
             //JSONObject jo = new JSONObject(json);
             String role = getUserRole(username);
-            if (role != null && role.equals("radnik")) return false;
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 }

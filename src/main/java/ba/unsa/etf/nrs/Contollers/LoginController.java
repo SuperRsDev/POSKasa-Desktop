@@ -38,8 +38,6 @@ public class LoginController {
     private boolean choosen = false;
 
 
-
-
     @FXML
     public void initialize() {
         dao = PosDAO.getInstance();
@@ -152,6 +150,8 @@ public class LoginController {
                                 if(!choosen) Locale.setDefault(new Locale("bs","BA"));
                                 ResourceBundle bundle = ResourceBundle.getBundle("Translation");
                                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
+                                GlavnaController ctrl = new GlavnaController(fldUsername.getText(), fldPassword.getText());
+                                fxmlLoader.setController(ctrl);
                                 Parent root = fxmlLoader.load();
                                 Stage newStage = new Stage();
                                 newStage.setTitle(ResourceBundle.getBundle("Translation").getString("title"));
