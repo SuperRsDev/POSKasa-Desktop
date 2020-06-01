@@ -35,26 +35,26 @@
                 <Insets bottom="20.0" />
             </GridPane.margin>
         </ImageView>
-        <Label alignment="CENTER" prefHeight="27.0" prefWidth="321.0" text="Korisnik" GridPane.columnSpan="2147483647">
+        <Label alignment="CENTER" prefHeight="27.0" prefWidth="321.0" text="%Korisnik" GridPane.columnSpan="2147483647">
             <font>
                 <Font name="Arial Black" size="18.0" />
             </font>
             <GridPane.margin>
                 <Insets bottom="20.0" />
             </GridPane.margin></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Ime korisnika: " GridPane.rowIndex="2">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="%ime_korisnika: " GridPane.rowIndex="2">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="126.0" text="Prezime korisnika: " GridPane.rowIndex="3">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="126.0" text="%Prezime_korisnika: " GridPane.rowIndex="3">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Datum rođenja: " GridPane.rowIndex="4">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="%Datum_rodjenja: " GridPane.rowIndex="4">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="124.0" text="Adresa stanovanja: " GridPane.rowIndex="5">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="124.0" text="%Adresa_stanovanja: " GridPane.rowIndex="5">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
@@ -62,68 +62,68 @@
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label prefHeight="40.0" prefWidth="100.0" text="Telefon: " GridPane.rowIndex="7">
+        <Label prefHeight="40.0" prefWidth="100.0" text="%Telefon: " GridPane.rowIndex="7">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Korisničko ime: " GridPane.rowIndex="8">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="%Korisnicko_ime: " GridPane.rowIndex="8">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="127.0" text="Korisnička lozinka: " GridPane.rowIndex="9">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="127.0" text="%Korisnicka_lozinka: " GridPane.rowIndex="9">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Uloga korisnika: " GridPane.rowIndex="10">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="%Uloga_korisnika: " GridPane.rowIndex="10">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <TextField promptText="Ime" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <TextField promptText="%ime " GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets />
             </GridPane.margin></TextField>
-        <TextField promptText="Prezime" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <TextField promptText="%Prezime" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets />
             </GridPane.margin></TextField>
-        <TextField promptText="Adresa" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <TextField promptText="%Adresa" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets top="10.0" />
             </GridPane.margin></TextField>
-        <TextField promptText="Email račun" GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <TextField promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <GridPane.margin>
                 <Insets bottom="10.0" top="10.0" />
             </GridPane.margin></TextField>
-        <TextField promptText="Kontakt broj" GridPane.columnIndex="1" GridPane.rowIndex="7">
+        <TextField promptText="%kontakt" GridPane.columnIndex="1" GridPane.rowIndex="7">
             <GridPane.margin>
                 <Insets />
             </GridPane.margin></TextField>
-        <TextField promptText="Korisničko ime" GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <TextField promptText="%Korisnicko_ime" GridPane.columnIndex="1" GridPane.rowIndex="8">
             <GridPane.margin>
                 <Insets top="10.0" />
             </GridPane.margin></TextField>
-        <Button mnemonicParsing="false" text="Nazad" GridPane.rowIndex="11">
+        <Button mnemonicParsing="false" text="%Nazad" GridPane.rowIndex="11">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: lawngreen;" text="Sačuvaj" GridPane.columnIndex="1" GridPane.rowIndex="11">
+        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: lawngreen;" text="%Sacuvaj" GridPane.columnIndex="1" GridPane.rowIndex="11">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: crimson;" text="Obriši" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: crimson;" text="%Obrisi" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-      <Button mnemonicParsing="false" text="Dodaj/izmijeni sliku" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Button mnemonicParsing="false" text="%Dodaj/izmijeni sliku" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="30.0" />
          </GridPane.margin>

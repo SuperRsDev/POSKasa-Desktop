@@ -78,7 +78,7 @@ public class ManageUsersController {
     public void addUserAction(ActionEvent actionEvent) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/dodaj_korisnika.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addEditUser.fxml"), bundle);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_korisnika"));
