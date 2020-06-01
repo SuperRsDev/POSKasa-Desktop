@@ -54,7 +54,7 @@ public class PosDAO {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3308/dbnrs_pos20?useSSL=false"; //podložno promjenama shodno koji port koristi server
-            conn = DriverManager.getConnection(url, "root", "");
+            conn = DriverManager.getConnection(url, "root", "root");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
