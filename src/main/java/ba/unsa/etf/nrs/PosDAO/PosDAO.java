@@ -103,7 +103,7 @@ public class PosDAO {
         URL url = null;
         Product product = null;
         try {
-            url = new URL("http://localhost:8080/pos/product/" + id);
+            url = new URL("http://localhost:8080/api/products/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -127,7 +127,7 @@ public class PosDAO {
         URL url = null;
         Category category = null;
         try {
-            url = new URL("http://localhost:8080/pos/category/" + id);
+            url = new URL("http://localhost:8080/api/categories/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -150,7 +150,7 @@ public class PosDAO {
         URL url = null;
         Category category = null;
         try {
-            url = new URL("http://localhost:8080/pos/categories/" + name);
+            url = new URL("http://localhost:8080/api/categories/" + name);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -215,7 +215,7 @@ public class PosDAO {
         URL url = null;
         User user = null;
         try {
-            url = new URL("http://localhost:8080/pos/user/" + id);
+            url = new URL("http://localhost:8080/api/users/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -252,7 +252,7 @@ public class PosDAO {
         URL url = null;
         PaymentType paymentType = null;
         try {
-            url = new URL("http://localhost:8080/pos/paymentType/" + id);
+            url = new URL("http://localhost:8080/api/paymentTypes/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -275,7 +275,7 @@ public class PosDAO {
         URL url = null;
         Order order = null;
         try {
-            url = new URL("http://localhost:8080/pos/order/" + id);
+            url = new URL("http://localhost:8080/api/orders/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -326,7 +326,7 @@ public class PosDAO {
         URL url = null;
         String role = null;
         try {
-            url = new URL("http://localhost:8080/pos/userrole/" + username);
+            url = new URL("http://localhost:8080/api/userRoles/" + username);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -382,7 +382,7 @@ public class PosDAO {
     public void addUser(User user) {
         URL url = null;
         try {
-            url = new URL("http://localhost:8080/pos/user");
+            url = new URL("http://localhost:8080/api/users");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -406,7 +406,7 @@ public class PosDAO {
     public void addCategory(Category category) {
         URL url = null;
         try {
-            url = new URL("http://localhost:8080/pos/category");
+            url = new URL("http://localhost:8080/api/categories");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -423,7 +423,7 @@ public class PosDAO {
     public void addProduct(Product product) {
         URL url = null;
         try {
-            url = new URL("http://localhost:8080/pos/product");
+            url = new URL("http://localhost:8080/api/products");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -445,7 +445,7 @@ public class PosDAO {
     public void addPos(POS pos) {
         URL url = null;
         try {
-            url = new URL("http://localhost:8080/pos/pos");
+            url = new URL("http://localhost:8080/api/pos");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -462,7 +462,7 @@ public class PosDAO {
     public void addOrder(Order order) {
         URL url = null;
         try {
-            url = new URL("http://localhost:8080/pos/order");
+            url = new URL("http://localhost:8080/api/orders");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -481,7 +481,7 @@ public class PosDAO {
     public void addProductOrder(Product product, Order order) {
         URL url = null;
         try {
-            url = new URL("http://localhost:8080/pos/productOrder");
+            url = new URL("http://localhost:8080/api/productOrders");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -532,7 +532,7 @@ public class PosDAO {
         URL url = null;
         HttpURLConnection con = null;
         try {
-            url = new URL("http://localhost:8080/pos/user/" + id);
+            url = new URL("http://localhost:8080/api/users/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -544,7 +544,7 @@ public class PosDAO {
         URL url = null;
         HttpURLConnection con = null;
         try {
-            url = new URL("http://localhost:8080/pos/category/" + id);
+            url = new URL("http://localhost:8080/api/categories/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -556,7 +556,7 @@ public class PosDAO {
         URL url = null;
         HttpURLConnection con = null;
         try {
-            url = new URL("http://localhost:8080/pos/product/" + id);
+            url = new URL("http://localhost:8080/api/products/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -598,7 +598,7 @@ public class PosDAO {
         URL url = null;
         HttpURLConnection con = null;
         try {
-            url = new URL("http://localhost:8080/pos/user/" + id);
+            url = new URL("http://localhost:8080/api/users/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -620,7 +620,7 @@ public class PosDAO {
         URL url = null;
         HttpURLConnection con = null;
         try {
-            url = new URL("http://localhost:8080/pos/product/" + id);
+            url = new URL("http://localhost:8080/api/products/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -640,7 +640,7 @@ public class PosDAO {
         URL url = null;
         JSONObject object = null;
         try {
-            url = new URL("http://localhost:8080/pos/user/" + username + "/" + password);
+            url = new URL("http://localhost:8080/api/users/" + username + "/" + password);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
