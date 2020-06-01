@@ -3,37 +3,32 @@ package ba.unsa.etf.nrs.Contollers;
 import ba.unsa.etf.nrs.DataClasses.Category;
 import ba.unsa.etf.nrs.DataClasses.Product;
 import ba.unsa.etf.nrs.PosDAO.PosDAO;
+import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class GlavnaController {
 
@@ -46,9 +41,7 @@ public class GlavnaController {
     public Button btnAddProduct;
     public Label lblDate;
     public Label lblTime;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    private String password;
-    private String username;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     public Button btnEmployees;
     public Button btnArticalReport;
     public Button btnStatusReport;
@@ -62,19 +55,20 @@ public class GlavnaController {
     public Button btnClearSearchText;
     public Button btnSearch;
 
-    public GlavnaController(String username, String password) {
-        this.username = username;
-        this.password = password;
+    private AuthService authService;
 
+    public GlavnaController() {
+        this.authService = AuthService.getInstance();
     }
 
     @FXML
     public void initialize() {
         dao = dao.getInstance();
         lblDate.setText(LocalDate.now().format(formatter));
-        if (dao.getUserRole(username).equals("menadzer")) {
+        if ("menadzer".equals(this.authService.getRole())) {
             btnEmployees.setDisable(true);
         }
+
         Thread timerThread = new Thread(() -> {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
             while (true) {
@@ -173,7 +167,7 @@ public class GlavnaController {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
-            GlavnaController ctrl = new GlavnaController(username, password);
+            GlavnaController ctrl = new GlavnaController();
             fxmlLoader.setController(ctrl);
             Stage stage = (Stage) idPane.getScene().getWindow();
             stage.setScene(new Scene(fxmlLoader.load()));

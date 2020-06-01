@@ -2,13 +2,11 @@ package ba.unsa.etf.nrs.PosDAO;
 
 import ba.unsa.etf.nrs.DataClasses.*;
 import ba.unsa.etf.nrs.NoInternetException;
+import ba.unsa.etf.nrs.Services.AuthService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -21,11 +19,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 public class PosDAO {
     private static PosDAO instance;
     private static Connection conn;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+    private AuthService authService;
+    private static final String baseUri = "http://localhost:8080/api/";
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
 
     public static PosDAO getInstance() {
         if(instance == null) instance = new PosDAO();
@@ -53,40 +54,108 @@ public class PosDAO {
     private PosDAO() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3308/dbnrs_pos20?useSSL=false"; //podložno promjenama shodno koji port koristi server
-            conn = DriverManager.getConnection(url, "root", "root");
+            authService = AuthService.getInstance();
+            int port = 3308;
+            String dbUsername = "root";
+            String dbPassword = "123az45AZ!";
+            String url = "jdbc:mysql://localhost:" + port + "/dbnrs_pos20?useSSL=false"; //podložno promjenama shodno koji port koristi server
+            conn = DriverManager.getConnection(url, dbUsername, dbPassword);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
 
-
-    //funkcija koja se povezuje na api pos kase sa rutom prosljeđenom kao parametar funkcije
-    private JSONArray connectToURL(String path) {
+    private URL getUrl(String uri) {
         URL url = null;
-        JSONArray jsonArray = null;
         try {
-            url = new URL("http://localhost:8080/pos/" + path);
+            url = new URL(baseUri + uri);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        return url;
+    }
+
+    private JSONArray getJsonArrayFromUrl(URL url) {
+        JSONArray jsonArray;
+        String json = this.getReaderJsonConnectionData(url);
+        if (json == null) return null;
+        jsonArray = new JSONArray(json);
+        return jsonArray;
+    }
+
+    private JSONObject getJsonObjectFromUrl(URL url) {
+        JSONObject jsonArray;
+        String json = this.getReaderJsonConnectionData(url);
+        if (json == null) return null;
+        jsonArray = new JSONObject(json);
+        return jsonArray;
+    }
+
+    private JSONObject getJsonObjectData(String path) {
+        URL url = this.getUrl(path);
+
+        return this.getJsonObjectFromUrl(url);
+    }
+
+    //funkcija koja se povezuje na api pos kase sa rutom prosljeđenom kao parametar funkcije
+    private JSONArray getJsonArrayData(String path) {
+        URL url = this.getUrl(path);
+
+        return this.getJsonArrayFromUrl(url);
+    }
+
+    private HttpURLConnection getBaseHttpConnection(URL url, String method) throws IOException {
+        HttpURLConnection con;
+        con = (HttpURLConnection) url.openConnection();
+        con.setRequestProperty("Access-Control-Allow-Origin", "*");
+        con.setRequestMethod(method);
+        con.setRequestProperty("Content-Type", "application/json");
+
+        return con;
+    }
+
+    private HttpURLConnection getHttpConnection(URL url, String method) throws IOException {
+        HttpURLConnection con = this.getBaseHttpConnection(url, method);
+        String basicAuth = "Bearer " + this.authService.getToken();
+        con.setRequestProperty ("Authorization", basicAuth);
+
+        return con;
+    }
+
+    private String getReaderJsonConnectionData(URL url) {
         try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            if (json.isEmpty()) return null;
-            jsonArray = new JSONArray(json);
+            HttpURLConnection con = this.getHttpConnection(url, "GET");
+            InputStream in = con.getInputStream();
+            return this.getReaderJson(in);
         } catch (IOException e) {
             e.printStackTrace();
+            new NoInternetException();
         }
-        return jsonArray;
+        return null;
+    }
+
+    private String getReaderJson(InputStream in) {
+        try {
+            BufferedReader entry = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+            StringBuilder json = new StringBuilder();
+            String line = "";
+            while ((line = entry.readLine()) != null) {
+                json.append(line);
+            }
+
+            entry.close();
+            if (json.length() == 0) return null;
+            return (json.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            new NoInternetException();
+        }
+        return null;
     }
 
     public ArrayList<Product> getProducts() {
         ArrayList<Product> result = new ArrayList<>();
-        JSONArray jsonArray = connectToURL("products");
+        JSONArray jsonArray = getJsonArrayData("products");
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
@@ -100,78 +169,33 @@ public class PosDAO {
     }
 
     public Product getProduct(int id) {
-        URL url = null;
-        Product product = null;
-        try {
-            url = new URL("http://localhost:8080/api/products/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            if (json.isEmpty()) return null;
-            JSONObject jo = new JSONObject(json);
-            product = new Product(jo.getInt("id"), jo.getString("name"), jo.getInt("stockQuantity"), jo.getString("description"), jo.getString("status"),
-                    jo.getInt("unitPrice"), jo.getInt("sellingPrice"), getCategory(jo.getInt("categoryId")));
-        } catch (IOException e) {
-            new NoInternetException();
-        }
+        Product product;
+        JSONObject jo = this.getJsonObjectData("products/" + id);
+        if (jo == null) return null;
+        product = new Product(jo.getInt("id"), jo.getString("name"), jo.getInt("stockQuantity"), jo.getString("description"), jo.getString("status"),
+                jo.getInt("unitPrice"), jo.getInt("sellingPrice"), getCategory(jo.getInt("categoryId")));
         return product;
     }
 
     public Category getCategory(int id) {
-        URL url = null;
         Category category = null;
-        try {
-            url = new URL("http://localhost:8080/api/categories/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            if (json.isEmpty()) return null;
-            JSONObject jo = new JSONObject(json);
-            category = new Category(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
-        } catch (IOException e) {
-            new NoInternetException();
-        }
+        JSONObject jo = this.getJsonObjectData("categories/" + id);
+        if (jo == null) return null;
+        category = new Category(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
         return category;
     }
 
     public Category getCategoryByName(String name) {
-        URL url = null;
-        Category category = null;
-        try {
-            url = new URL("http://localhost:8080/api/categories/" + name);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            if (json.isEmpty()) return null;
-            JSONObject jo = new JSONObject(json);
-            category = new Category(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
-        } catch (IOException e) {
-            new NoInternetException();
-        }
+        Category category;
+        JSONObject jo = this.getJsonObjectData("categories/" + name);
+        if (jo == null) return null;
+        category = new Category(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
         return category;
     }
 
     public ArrayList<Category> getCategories() {
         ArrayList<Category> result = new ArrayList<>();
-        JSONArray jsonArray = connectToURL("categories");
+        JSONArray jsonArray = getJsonArrayData("categories");
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
@@ -183,7 +207,7 @@ public class PosDAO {
 
     public ArrayList<Product> getProductsForCategory(Category category) {
         ArrayList<Product> result = new ArrayList<>();
-        JSONArray jsonArray = connectToURL("products/" + category.getName());
+        JSONArray jsonArray = getJsonArrayData("products/" + category.getName());
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
@@ -198,7 +222,7 @@ public class PosDAO {
     public ArrayList<Product> getProductsByName(String name) {
         ArrayList<Product> result = new ArrayList<>();
         
-        JSONArray jsonArray = connectToURL("products/" + name);
+        JSONArray jsonArray = getJsonArrayData("products/" + name);
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
@@ -213,31 +237,19 @@ public class PosDAO {
 
     public User getUser(int id) {
         URL url = null;
-        User user = null;
-        try {
-            url = new URL("http://localhost:8080/api/users/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            if (json.isEmpty()) return null;
-            JSONObject jo = new JSONObject(json);
-            LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
-            user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"), jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"), jo.getString("picture"), date, jo.getString("loginProvider"));
-        } catch (IOException e) {
-            new NoInternetException();
-        }
+        JSONObject jo = this.getJsonObjectData("users/" + id);
+        if (jo == null) return null;
+        User user;
+        LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
+        user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"),
+                jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"),
+                jo.getString("picture"), date, jo.getString("loginProvider"));
         return user;
     }
 
     public ArrayList<User> getUsers() {
         ArrayList<User> result = new ArrayList<>();
-        JSONArray jsonArray = connectToURL("users");
+        JSONArray jsonArray = getJsonArrayData("users");
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
@@ -249,55 +261,26 @@ public class PosDAO {
     }
 
     public PaymentType getPaymentType(int id) {
-        URL url = null;
+        JSONObject jo = this.getJsonObjectData("paymentTypes/" + id);
+        if (jo == null) return null;
         PaymentType paymentType = null;
-        try {
-            url = new URL("http://localhost:8080/api/paymentTypes/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            if (json.isEmpty()) return null;
-            JSONObject jo = new JSONObject(json);
-            paymentType = new PaymentType(jo.getInt("id"), jo.getString("paymentTypeProvider"), jo.getString("description"));
-        } catch (IOException e) {
-            new NoInternetException();
-        }
+        paymentType = new PaymentType(jo.getInt("id"), jo.getString("paymentTypeProvider"), jo.getString("description"));
         return paymentType;
     }
 
     public Order getOrder(int id) {
-        URL url = null;
+        JSONObject jo = this.getJsonObjectData("orders/" + id);
+        if (jo == null) return null;
         Order order = null;
-        try {
-            url = new URL("http://localhost:8080/api/orders/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            if (json.isEmpty()) return null;
-            JSONObject jo = new JSONObject(json);
-            LocalDate date = LocalDate.parse(jo.getString("date"), formatter);
-            order = new Order(jo.getInt("id"), getUser(jo.getInt("employeeId")), getPaymentType(jo.getInt("paymentTypeId")), date, jo.getString("status"), jo.getString("orderType"));
-        } catch (IOException e) {
-            new NoInternetException();
-        }
+        LocalDate date = LocalDate.parse(jo.getString("date"), formatter);
+        order = new Order(jo.getInt("id"), getUser(jo.getInt("employeeId")), getPaymentType(jo.getInt("paymentTypeId")), date,
+                jo.getString("status"), jo.getString("orderType"));
         return order;
     }
 
     public ArrayList<Order> getOrders() {
         ArrayList<Order> result = new ArrayList<>();
-        JSONArray jsonArray = connectToURL("orders");
+        JSONArray jsonArray = getJsonArrayData("orders");
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
@@ -310,7 +293,7 @@ public class PosDAO {
 
     public ArrayList<Integer> getSubTotals(int orderId) {
         ArrayList<Integer> result = new ArrayList<>();
-        JSONArray jsonArray = connectToURL("subTotals/" + orderId);
+        JSONArray jsonArray = getJsonArrayData("subTotals/" + orderId);
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             int subTotalForOneProduct = 0;
@@ -323,28 +306,16 @@ public class PosDAO {
     }
 
     public String getUserRole(String username) {
-        URL url = null;
+        URL url = this.getUrl("userRoles/" + username);
         String role = null;
-        try {
-            url = new URL("http://localhost:8080/api/userRoles/" + username);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        String json = this.getReaderJsonConnectionData(url), json1 = "";
+        if (json == null) return null;
+        if(json.contains("[") && json.contains("]")) {
+            json1 = json.substring(1, json.length() - 1);
         }
-        try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            String json = "", line = "", json1 = "";
-            while ((line = entry.readLine()) != null) {
-                    json = json + line;
-            }
-            if(json.contains("[") && json.contains("]")) {
-               json1 = json.substring(1, json.length()-1);
-            }
-            if (json1.isEmpty()) return null;
-            JSONObject jo = new JSONObject(json1);
-            role = jo.getString("name");
-        } catch (IOException e) {
-            new NoInternetException();
-        }
+        if (json1.isEmpty()) return null;
+        JSONObject jo = new JSONObject(json1);
+        role = jo.getString("name");
         return role;
     }
 
@@ -353,39 +324,39 @@ public class PosDAO {
      */
 
     private int addViaHttp(JSONObject jsonObject, URL url) {
-        HttpURLConnection con = null;
+        HttpURLConnection con;
+        JSONObject jsonObjectReturn = this.postViaHttp(jsonObject, url, true);
+        return Objects.requireNonNull(jsonObjectReturn).getInt("id");
+    }
+
+    private JSONObject postViaHttp(JSONObject jsonObject, URL url, boolean shouldAuth) {
+        HttpURLConnection con;
         JSONObject jsonObjectReturn = null;
         try {
             byte[] data = jsonObject.toString().getBytes();
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "application/json");
+            if (shouldAuth) {
+                con = this.getHttpConnection(url, "POST");
+            } else {
+                con = this.getBaseHttpConnection(url, "POST");
+            }
+
             con.setDoOutput(true);
             DataOutputStream out = new DataOutputStream(con.getOutputStream());
             out.write(data);
             out.flush();
             out.close();
 
-            BufferedReader entry = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
+            String json = this.getReaderJson(con.getInputStream());
+            if (json == null) return null;
             jsonObjectReturn = new JSONObject(json);
-            entry.close();
         } catch (IOException e) {
             new NoInternetException();
         }
-        return jsonObjectReturn.getInt("id");
+        return jsonObjectReturn;
     }
 
     public void addUser(User user) {
-        URL url = null;
-        try {
-            url = new URL("http://localhost:8080/api/users");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        URL url = this.getUrl("users");
         JSONObject jsonUser = new JSONObject();
         jsonUser.put("id", user.getId());
         jsonUser.put("firstName", user.getFirstName());
@@ -404,12 +375,7 @@ public class PosDAO {
     }
 
     public void addCategory(Category category) {
-        URL url = null;
-        try {
-            url = new URL("http://localhost:8080/api/categories");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        URL url = this.getUrl("categories");
         JSONObject jsonCategory = new JSONObject();
 
         jsonCategory.put("id", category.getId());
@@ -421,12 +387,7 @@ public class PosDAO {
     }
 
     public void addProduct(Product product) {
-        URL url = null;
-        try {
-            url = new URL("http://localhost:8080/api/products");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        URL url = this.getUrl("products");
         JSONObject jsonProduct = new JSONObject();
 
         jsonProduct.put("id", product.getProductId());
@@ -443,12 +404,7 @@ public class PosDAO {
     }
 
     public void addPos(POS pos) {
-        URL url = null;
-        try {
-            url = new URL("http://localhost:8080/api/pos");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        URL url = this.getUrl("pos");
         JSONObject jsonPos = new JSONObject();
         jsonPos.put("id", pos.getId());
         jsonPos.put("orderId", pos.getOrder().getId());
@@ -460,12 +416,7 @@ public class PosDAO {
     }
 
     public void addOrder(Order order) {
-        URL url = null;
-        try {
-            url = new URL("http://localhost:8080/api/orders");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        URL url = this.getUrl("orders");
         JSONObject jsonOrder = new JSONObject();
         jsonOrder.put("id", order.getId());
         jsonOrder.put("employeeId", order.getUser().getId());
@@ -479,12 +430,7 @@ public class PosDAO {
     }
 
     public void addProductOrder(Product product, Order order) {
-        URL url = null;
-        try {
-            url = new URL("http://localhost:8080/api/productOrders");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        URL url = this.getUrl("productOrders");
         JSONObject jsonOrder = new JSONObject();
         jsonOrder.put("id", order.getId());
         jsonOrder.put("employeeId", order.getUser().getId());
@@ -505,9 +451,7 @@ public class PosDAO {
     private void deleteViaHttp (int id, URL url) {
         HttpURLConnection con = null;
         try {
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("DELETE");
-            con.setRequestProperty("Content-Type", "application/application/json");
+            con = this.getHttpConnection(url, "DELETE");
             con.setDoOutput(true);
             con.connect();
             DataOutputStream out = new DataOutputStream(con.getOutputStream());
@@ -515,12 +459,8 @@ public class PosDAO {
             out.flush();
             out.close();
 
-            BufferedReader entry = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            entry.close();
+            String json = this.getReaderJson(con.getInputStream());
+            if (json == null) return;
         } catch (ProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -529,37 +469,22 @@ public class PosDAO {
     }
 
     public void deleteUser(int id) {
-        URL url = null;
+        URL url = this.getUrl("users/" + id);
         HttpURLConnection con = null;
-        try {
-            url = new URL("http://localhost:8080/api/users/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         if (id > getUsers().size()) return;
         deleteViaHttp(id, url);
     }
 
     public void deleteCategory(int id) {
-        URL url = null;
+        URL url = this.getUrl("categories/" + id);
         HttpURLConnection con = null;
-        try {
-            url = new URL("http://localhost:8080/api/categories/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         if (id > getCategories().size()) return;
         deleteViaHttp(id, url);
     }
 
     public void deleteProduct(int id) {
-        URL url = null;
+        URL url = this.getUrl("products/" + id);
         HttpURLConnection con = null;
-        try {
-            url = new URL("http://localhost:8080/api/products/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         if (id > getProducts().size()) return;
         deleteViaHttp(id, url);
     }
@@ -573,9 +498,7 @@ public class PosDAO {
         HttpURLConnection con = null;
         try {
             byte[] data = jo.toString().getBytes();
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("PUT");
-            con.setRequestProperty("Content-Type", "application/json");
+            con = this.getHttpConnection(url, "PUT");
             con.setDoOutput(true);
             con.connect();
             DataOutputStream out = new DataOutputStream(con.getOutputStream());
@@ -583,25 +506,16 @@ public class PosDAO {
             out.flush();
             out.close();
 
-            BufferedReader entry = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            entry.close();
+            String json = this.getReaderJson(con.getInputStream());
+            if (json == null) return;
         } catch (IOException e) {
             new NoInternetException();
         }
     }
 
     public void updateUser(int id, String firstName, String lastName, String username, String password, String email, String phone, String address, String picture, LocalDate birthDate, String loginProvider) {
-        URL url = null;
+        URL url = this.getUrl("users/" + id);
         HttpURLConnection con = null;
-        try {
-            url = new URL("http://localhost:8080/api/users/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         JSONObject userObj = new JSONObject();
         userObj.put("firstName", firstName);
         userObj.put("lastName", lastName);
@@ -617,13 +531,8 @@ public class PosDAO {
     }
 
     public void updateProduct(int id, String name, int stockQuantity, String status, String description, int unitPrice, int sellingPrice, Category category) {
-        URL url = null;
+        URL url = this.getUrl("products/" + id);
         HttpURLConnection con = null;
-        try {
-            url = new URL("http://localhost:8080/api/products/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         JSONObject productObj = new JSONObject();
         productObj.put("name", name);
         productObj.put("stockQuantity", stockQuantity);
@@ -637,28 +546,20 @@ public class PosDAO {
     }
 
     public boolean loginValid(String username, String password) {
-        URL url = null;
-        JSONObject object = null;
-        try {
-            url = new URL("http://localhost:8080/api/users/" + username + "/" + password);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            String json = "", line = "";
-            while ((line = entry.readLine()) != null) {
-                json = json + line;
-            }
-            if (json.isEmpty()) return false;
-            //JSONObject jo = new JSONObject(json);
-            String role = getUserRole(username);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+        URL url = this.getUrl("users/" + username + "/" + password);
+        String json = this.getReaderJsonConnectionData(url);
+        if (json == null) return false;
+        String role = getUserRole(username);
+        return true;
     }
 
+    public String getToken(String username, String password) {
+        URL url = this.getUrl("token");
+        JSONObject jsonPos = new JSONObject();
+        jsonPos.put("username", username);
+        jsonPos.put("password", password);
 
+        JSONObject response = postViaHttp(jsonPos, url, false);
+        return response.getString("token");
+    }
 }

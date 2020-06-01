@@ -1,0 +1,9 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS `auth` (
+	`id`	INTEGER,
+	`token`	TEXT,
+	`username`	TEXT,
+	PRIMARY KEY(`id`)
+);
+
+COMMIT;

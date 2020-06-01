@@ -2,6 +2,7 @@ package ba.unsa.etf.nrs.Contollers;
 
 import ba.unsa.etf.nrs.NoInternetException;
 import ba.unsa.etf.nrs.PosDAO.PosDAO;
+import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,6 +37,11 @@ public class LoginController {
     public GridPane gridId;
     private static boolean bosnian = false;
     private boolean choosen = false;
+    private AuthService authService;
+
+    public LoginController() {
+        this.authService = AuthService.getInstance();
+    }
 
 
     @FXML
@@ -117,7 +123,8 @@ public class LoginController {
                 fldPassword.getStyleClass().add("notOk");
             } else {
                 Thread thread = new Thread(() -> {
-                    if (!dao.loginValid(fldUsername.getText(), fldPassword.getText())) {
+                    String token = this.getTokenData();
+                    if (token == null) {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
@@ -150,7 +157,7 @@ public class LoginController {
                                 if(!choosen) Locale.setDefault(new Locale("bs","BA"));
                                 ResourceBundle bundle = ResourceBundle.getBundle("Translation");
                                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
-                                GlavnaController ctrl = new GlavnaController(fldUsername.getText(), fldPassword.getText());
+                                GlavnaController ctrl = new GlavnaController();
                                 fxmlLoader.setController(ctrl);
                                 Parent root = fxmlLoader.load();
                                 Stage newStage = new Stage();
@@ -169,5 +176,14 @@ public class LoginController {
         } else {
             NoInternetException.showAlert();
         }
+    }
+
+    private String getTokenData() {
+        String username = fldUsername.getText();
+        String token = dao.getToken(username, fldPassword.getText());
+        authService.setData(token, username, null);
+        String role = dao.getUserRole(username);
+        authService.setRole(role);
+        return token;
     }
 }
