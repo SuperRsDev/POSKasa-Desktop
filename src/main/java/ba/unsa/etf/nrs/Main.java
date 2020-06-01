@@ -1,9 +1,5 @@
 package ba.unsa.etf.nrs;
 
-import ba.unsa.etf.nrs.Contollers.GlavnaController;
-import ba.unsa.etf.nrs.Contollers.LoginController;
-import ba.unsa.etf.nrs.DataClasses.*;
-import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

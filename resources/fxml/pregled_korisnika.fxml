@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="100.0" prefHeight="398.0" prefWidth="417.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="idPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="100.0" prefHeight="398.0" prefWidth="417.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.nrs.Contollers.ManageUsersController">
     <columnConstraints>
         <ColumnConstraints />
     </columnConstraints>
@@ -16,35 +16,28 @@
         <RowConstraints />
     </rowConstraints>
     <children>
-        <Label alignment="CENTER" prefHeight="27.0" prefWidth="444.0" text="Korisnici" GridPane.columnSpan="2147483647">
+        <Label alignment="CENTER" prefHeight="27.0" prefWidth="444.0" text="%Korisnici" GridPane.columnSpan="2147483647">
             <font>
                 <Font name="Arial Black" size="18.0" />
             </font>
             <GridPane.margin>
                 <Insets bottom="20.0" />
             </GridPane.margin></Label>
-        <ListView prefHeight="249.0" prefWidth="375.0" GridPane.rowIndex="1">
+        <ListView fx:id="listUsers" prefHeight="249.0" prefWidth="375.0" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets bottom="10.0" />
             </GridPane.margin>
         </ListView>
-        <Button mnemonicParsing="false" text="Nazad" GridPane.rowIndex="2">
+        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#backAction" text="%Nazad" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="125.0" style="-fx-background-color: lawngreen;" text="Dodaj korisnika" GridPane.rowIndex="2">
+        <Button fx:id="btnAddUser" mnemonicParsing="false" onAction="#addUserAction" prefHeight="29.0" prefWidth="125.0" style="-fx-background-color: lawngreen;" text="%Dodaj_korisnika" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets left="140.0" top="20.0" />
-            </GridPane.margin>
-            <font>
-                <Font name="Arial Black" size="12.218181610107422" />
-            </font></Button>
-        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="78.0" style="-fx-background-color: crimson;" text="Obriši" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-            <GridPane.margin>
-                <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />

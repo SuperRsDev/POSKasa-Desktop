@@ -18,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import javax.swing.text.PasswordView;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -157,7 +156,7 @@ public class LoginController {
                                 if(!choosen) Locale.setDefault(new Locale("bs","BA"));
                                 ResourceBundle bundle = ResourceBundle.getBundle("Translation");
                                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
-                                GlavnaController ctrl = new GlavnaController();
+                                MainController ctrl = new MainController();
                                 fxmlLoader.setController(ctrl);
                                 Parent root = fxmlLoader.load();
                                 Stage newStage = new Stage();

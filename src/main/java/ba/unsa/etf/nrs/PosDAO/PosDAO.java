@@ -3,6 +3,7 @@ package ba.unsa.etf.nrs.PosDAO;
 import ba.unsa.etf.nrs.DataClasses.*;
 import ba.unsa.etf.nrs.NoInternetException;
 import ba.unsa.etf.nrs.Services.AuthService;
+import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -57,7 +59,7 @@ public class PosDAO {
             authService = AuthService.getInstance();
             int port = 3308;
             String dbUsername = "root";
-            String dbPassword = "123az45AZ!";
+            String dbPassword = "root";
             String url = "jdbc:mysql://localhost:" + port + "/dbnrs_pos20?useSSL=false"; //podložno promjenama shodno koji port koristi server
             conn = DriverManager.getConnection(url, dbUsername, dbPassword);
         } catch (ClassNotFoundException | SQLException e) {
@@ -187,7 +189,7 @@ public class PosDAO {
 
     public Category getCategoryByName(String name) {
         Category category;
-        JSONObject jo = this.getJsonObjectData("categories/" + name);
+        JSONObject jo = this.getJsonObjectData("categoriesfor/" + name);
         if (jo == null) return null;
         category = new Category(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
         return category;
@@ -207,7 +209,7 @@ public class PosDAO {
 
     public ArrayList<Product> getProductsForCategory(Category category) {
         ArrayList<Product> result = new ArrayList<>();
-        JSONArray jsonArray = getJsonArrayData("products/" + category.getName());
+        JSONArray jsonArray = getJsonArrayData("productsfor/" + category.getName());
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
@@ -247,8 +249,8 @@ public class PosDAO {
         return user;
     }
 
-    public ArrayList<User> getUsers() {
-        ArrayList<User> result = new ArrayList<>();
+    public List<User> getUsers() {
+        List<User> result = new ArrayList<>();
         JSONArray jsonArray = getJsonArrayData("users");
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -256,6 +258,7 @@ public class PosDAO {
             LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
             User user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"), jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"), jo.getString("picture"), date, jo.getString("loginProvider"));
             result.add(user);
+            System.out.println(user.getFirstName());
         }
         return result;
     }
@@ -306,7 +309,7 @@ public class PosDAO {
     }
 
     public String getUserRole(String username) {
-        URL url = this.getUrl("userRoles/" + username);
+        URL url = this.getUrl("userRolesfor/" + username);
         String role = null;
         String json = this.getReaderJsonConnectionData(url), json1 = "";
         if (json == null) return null;

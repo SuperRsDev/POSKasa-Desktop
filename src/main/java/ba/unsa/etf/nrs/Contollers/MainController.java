@@ -30,7 +30,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class GlavnaController {
+public class MainController {
 
     private PosDAO dao;
     public ImageView enFlagImg;
@@ -57,7 +57,7 @@ public class GlavnaController {
 
     private AuthService authService;
 
-    public GlavnaController() {
+    public MainController() {
         this.authService = AuthService.getInstance();
     }
 
@@ -118,6 +118,10 @@ public class GlavnaController {
             public void handle(ActionEvent actionEvent) {
                 ArrayList<Product> products = dao.getProductsForCategory(category);
                 String buttonCssProps = "-fx-pref-height:60.0; -fx-pref-width:132.0;";
+                for (Product p: products
+                     ) {
+                    System.out.println(p.getName());
+                }
                 showProducts(products, buttonCssProps);
             }
         };
@@ -167,7 +171,7 @@ public class GlavnaController {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
-            GlavnaController ctrl = new GlavnaController();
+            MainController ctrl = new MainController();
             fxmlLoader.setController(ctrl);
             Stage stage = (Stage) idPane.getScene().getWindow();
             stage.setScene(new Scene(fxmlLoader.load()));
@@ -294,6 +298,22 @@ public class GlavnaController {
         ArrayList<Product> products = dao.getProductsByName(fldSearch.getText());
         showProducts(products, buttonCssProps);
     }
+
+    public void btnShowEmployeesAction(ActionEvent actionEvent) {
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/pregled_korisnika.fxml"), bundle);
+            Parent root = fxmlLoader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Korisnici"));
+            newStage.setScene(new Scene(root));
+            newStage.setResizable(false);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 /*
     public void editProfileAction(ActionEvent actionEvent) {
         try {
