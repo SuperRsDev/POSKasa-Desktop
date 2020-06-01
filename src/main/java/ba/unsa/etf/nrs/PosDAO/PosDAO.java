@@ -238,8 +238,22 @@ public class PosDAO {
     }
 
     public User getUser(int id) {
+        JSONArray jsonArray = getJsonArrayData("users/" + id);
+        if (jsonArray == null) return null;
+        User user = null;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jo = jsonArray.getJSONObject(i);
+            LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
+            user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"),
+                    jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"),
+                    jo.getString("picture"), date, jo.getString("loginProvider"));
+        }
+        return user;
+    }
+
+    public User getUserByUsername(String username, String password) {
         URL url = null;
-        JSONObject jo = this.getJsonObjectData("users/" + id);
+        JSONObject jo = this.getJsonObjectData("users/" + username + "/" + password);
         if (jo == null) return null;
         User user;
         LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
@@ -248,6 +262,7 @@ public class PosDAO {
                 jo.getString("picture"), date, jo.getString("loginProvider"));
         return user;
     }
+
 
     public List<User> getUsers() {
         List<User> result = new ArrayList<>();
@@ -307,19 +322,18 @@ public class PosDAO {
         return result;
     }
 
-    public String getUserRole(String username) {
-        URL url = this.getUrl("userRolesfor/" + username);
-        String role = null;
-        String json = this.getReaderJsonConnectionData(url), json1 = "";
-        if (json == null) return null;
-        if(json.contains("[") && json.contains("]")) {
-            json1 = json.substring(1, json.length() - 1);
+    public Role getUserRole(User user) {
+        JSONArray jsonArray = getJsonArrayData("userRoles/" + user.getUsername());
+        System.out.println(jsonArray);
+        if (jsonArray == null) return null;
+        Role role = null;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jo = jsonArray.getJSONObject(i);
+            role = new Role(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
         }
-        if (json1.isEmpty()) return null;
-        JSONObject jo = new JSONObject(json1);
-        role = jo.getString("name");
         return role;
     }
+
     public List<String> getRoles() {
         List<String> result = new ArrayList<>();
         JSONArray jsonArray = getJsonArrayData("roles");
@@ -456,6 +470,13 @@ public class PosDAO {
         int id = addViaHttp(jsonOrder, url);
         order.setId(id);
     }
+    public void addUserRole(User user) {
+        URL url = this.getUrl("users/withUsername=" + user.getUsername());
+        JSONObject jsonOrder = new JSONObject();
+        jsonOrder.put("userId", user.getId());
+        jsonOrder.put("roleId", getUserRole(user));
+        int id = addViaHttp(jsonOrder, url);
+    }
 
 
     /*
@@ -563,7 +584,6 @@ public class PosDAO {
         URL url = this.getUrl("users/" + username + "/" + password);
         String json = this.getReaderJsonConnectionData(url);
         if (json == null) return false;
-        String role = getUserRole(username);
         return true;
     }
 

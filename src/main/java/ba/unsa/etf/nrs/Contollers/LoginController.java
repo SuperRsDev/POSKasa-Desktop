@@ -1,5 +1,6 @@
 package ba.unsa.etf.nrs.Contollers;
 
+import ba.unsa.etf.nrs.DataClasses.Role;
 import ba.unsa.etf.nrs.NoInternetException;
 import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import ba.unsa.etf.nrs.Services.AuthService;
@@ -179,10 +180,11 @@ public class LoginController {
 
     private String getTokenData() {
         String username = fldUsername.getText();
+        String password = fldPassword.getText();
         String token = dao.getToken(username, fldPassword.getText());
         authService.setData(token, username, null);
-        String role = dao.getUserRole(username);
-        authService.setRole(role);
+        Role role = dao.getUserRole(dao.getUserByUsername(username, password));
+        authService.setRole(role.getName());
         return token;
     }
 }

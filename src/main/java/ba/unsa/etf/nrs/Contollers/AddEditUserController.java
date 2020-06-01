@@ -61,7 +61,7 @@ public class AddEditUserController {
             fldUsername.setText(user.getUsername());
             fldPassword.setText(user.getPassword());
             fldPassword.setDisable(true);
-            choiceBoxRole.getSelectionModel().select(dao.getUserRole(user.getUsername()));
+            choiceBoxRole.getSelectionModel().select(dao.getUserRole(user).getName());
             dpBirthDate.setValue(user.getBirthDate());
         }
     }
@@ -117,20 +117,23 @@ public class AddEditUserController {
             }).start();
         } catch (Exception ex) {
         }
-        if (user == null) user = new User();
-        user.setFirstName(fldFirstName.getText());
-        user.setLastName(fldLastName.getText());
-        user.setAddress(fldAddress.getText());
-        user.setEmail(fldEmail.getText());
-        user.setPhone(fldPhone.getText());
-        user.setUsername(fldUsername.getText());
-        user.setPassword(fldPassword.getText());
-        user.setBirthDate(dpBirthDate.getValue());
-        dao.addUser(user);
-       // dao.addUserRole(choiceBoxRole.getValue());
+        if (user == null) {
+            user = new User();
+            user.setFirstName(fldFirstName.getText());
+            user.setLastName(fldLastName.getText());
+            user.setAddress(fldAddress.getText());
+            user.setEmail(fldEmail.getText());
+            user.setPhone(fldPhone.getText());
+            user.setUsername(fldUsername.getText());
+            user.setPassword(fldPassword.getText());
+            user.setBirthDate(dpBirthDate.getValue());
+            dao.addUser(user);
+            dao.addUserRole(user);
+        }
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
     }
+
     private boolean isEmpty(TextField field) {
         if (field.getText().trim().isEmpty()) {
             field.getStyleClass().removeAll("ok");

@@ -1,5 +1,6 @@
 package ba.unsa.etf.nrs;
 
+import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,16 +13,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //Todo: bundle prevod da je uvijek isti kao izabrani - provjeriti
-        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        /*ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"), bundle);
         primaryStage.setTitle("POS");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
-        primaryStage.show();
-/*        PosDAO dao = PosDAO.getInstance();
+        primaryStage.show();*/
 
-        Category category = new Category( "slatkisi", "opis");
+        PosDAO dao = PosDAO.getInstance();
+        dao.getUserRole(dao.getUser(1));
+
+
+/*      Category category = new Category( "slatkisi", "opis");
         dao.addCategory(category);
 
         Product product = new Product("Čokolada", 50, "dostupan", "mliječna čokolada", 2, 1, dao.getCategory(3));
