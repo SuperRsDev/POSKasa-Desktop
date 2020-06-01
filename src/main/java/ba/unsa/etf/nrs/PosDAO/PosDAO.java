@@ -195,6 +195,22 @@ public class PosDAO {
         return result;
     }
 
+    public ArrayList<Product> getProductsByName(String name) {
+        ArrayList<Product> result = new ArrayList<>();
+        
+        JSONArray jsonArray = connectToURL("products/" + name);
+        if (jsonArray == null) return null;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jo = jsonArray.getJSONObject(i);
+            Product p = getProduct(jo.getInt("id"));
+            Product product = new Product(jo.getInt("id"), jo.getString("name"), jo.getInt("stockQuantity"),
+                    jo.getString("status"), jo.getString("description"), jo.getInt("unitPrice"),
+                    jo.getInt("sellingPrice"), p.getCategory());
+            result.add(product);
+        }
+        return result;
+    }
+
     public User getUser(int id) {
         URL url = null;
         User user = null;
@@ -643,4 +659,6 @@ public class PosDAO {
         }
         return false;
     }
+
+
 }

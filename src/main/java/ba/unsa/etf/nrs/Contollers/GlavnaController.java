@@ -58,6 +58,9 @@ public class GlavnaController {
     public GridPane idGridProducts;
     public VBox vboxCategories;
     public Label idCategoryName;
+    public TextField fldSearch;
+    public Button btnClearSearchText;
+    public Button btnSearch;
 
     public GlavnaController(String username, String password) {
         this.username = username;
@@ -289,6 +292,14 @@ public class GlavnaController {
         }
     }
 
+    public void clearSearchTextAction(ActionEvent actionEvent) {
+        fldSearch.setText("");
+    }
+    public void btnSearchAction(ActionEvent actionEvent) {
+        String buttonCssProps = "-fx-pref-height:60.0; -fx-pref-width:132.0;";
+        ArrayList<Product> products = dao.getProductsByName(fldSearch.getText());
+        showProducts(products, buttonCssProps);
+    }
 /*
     public void editProfileAction(ActionEvent actionEvent) {
         try {

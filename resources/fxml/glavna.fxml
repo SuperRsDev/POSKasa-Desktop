@@ -77,8 +77,8 @@
          <children>
             <HBox prefHeight="29.0" prefWidth="157.0" style="-fx-background-color: white;">
                <children>
-                  <TextArea maxHeight="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="107.0" promptText="%Pretrazi:" />
-                  <Button mnemonicParsing="false">
+                  <TextField fx:id="fldSearch" maxHeight="31.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="107.0" promptText="%Pretrazi:" />
+                  <Button fx:id="btnClearSearchText" mnemonicParsing="false" onAction="#clearSearchTextAction">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -90,7 +90,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="18.0">
+                  <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#btnSearchAction" prefWidth="18.0">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
