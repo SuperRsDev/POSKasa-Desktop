@@ -258,7 +258,6 @@ public class PosDAO {
             LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
             User user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"), jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"), jo.getString("picture"), date, jo.getString("loginProvider"));
             result.add(user);
-            System.out.println(user.getFirstName());
         }
         return result;
     }
@@ -320,6 +319,18 @@ public class PosDAO {
         JSONObject jo = new JSONObject(json1);
         role = jo.getString("name");
         return role;
+    }
+    public List<String> getRoles() {
+        List<String> result = new ArrayList<>();
+        JSONArray jsonArray = getJsonArrayData("roles");
+        if (jsonArray == null) return null;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jo = jsonArray.getJSONObject(i);
+            Role role = new Role(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
+            result.add(jo.getString("name"));
+
+        }
+        return result;
     }
 
     /*
@@ -565,4 +576,6 @@ public class PosDAO {
         JSONObject response = postViaHttp(jsonPos, url, false);
         return response.getString("token");
     }
+
+
 }

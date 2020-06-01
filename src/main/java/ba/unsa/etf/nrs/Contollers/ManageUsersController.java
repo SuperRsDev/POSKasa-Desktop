@@ -5,12 +5,14 @@ import ba.unsa.etf.nrs.PosDAO.PosDAO;
 import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -32,6 +34,8 @@ public class ManageUsersController {
     public ListView<User> listUsers;
     public GridPane idPane;
 
+    private User user;
+
 
     private AuthService authService;
 
@@ -43,8 +47,33 @@ public class ManageUsersController {
     public void initialize() {
         dao = PosDAO.getInstance();
         // dodavanje korisnika iz baze za kategoriju
-        System.out.println(dao.getUsers());
         listUsers.setItems(FXCollections.observableArrayList(dao.getUsers()));
+        listUsers.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent click) {
+
+                if (click.getClickCount() == 2) {
+                    User currentUser = listUsers.getSelectionModel()
+                            .getSelectedItem();
+                    try {
+                        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addEditUser.fxml"), bundle);
+                        AddEditUserController ctrl = new AddEditUserController(currentUser);
+                        fxmlLoader.setController(ctrl);
+                        Parent root = fxmlLoader.load();
+                        Stage newStage = new Stage();
+                        newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_korisnika"));
+                        newStage.setScene(new Scene(root));
+                        newStage.setResizable(false);
+                        newStage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
     }
 
 
@@ -79,6 +108,8 @@ public class ManageUsersController {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addEditUser.fxml"), bundle);
+            AddEditUserController ctrl = new AddEditUserController();
+            fxmlLoader.setController(ctrl);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_korisnika"));

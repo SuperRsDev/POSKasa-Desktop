@@ -4,3 +4,6 @@
 .notOk {
     -fx-control-inner-background: orangered;
 }
+.checking {
+    -fx-control-inner-background: yellow;
+}

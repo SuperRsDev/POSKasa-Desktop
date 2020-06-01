@@ -118,10 +118,6 @@ public class MainController {
             public void handle(ActionEvent actionEvent) {
                 ArrayList<Product> products = dao.getProductsForCategory(category);
                 String buttonCssProps = "-fx-pref-height:60.0; -fx-pref-width:132.0;";
-                for (Product p: products
-                     ) {
-                    System.out.println(p.getName());
-                }
                 showProducts(products, buttonCssProps);
             }
         };
