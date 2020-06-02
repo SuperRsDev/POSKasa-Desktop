@@ -2,7 +2,7 @@ package ba.unsa.etf.nrs.Contollers;
 
 import ba.unsa.etf.nrs.DataClasses.Category;
 import ba.unsa.etf.nrs.DataClasses.Product;
-import ba.unsa.etf.nrs.PosDAO.PosDAO;
+import ba.unsa.etf.nrs.DAO.PosDAO;
 import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

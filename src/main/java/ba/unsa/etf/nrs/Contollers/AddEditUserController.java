@@ -1,8 +1,10 @@
 package ba.unsa.etf.nrs.Contollers;
 
+import ba.unsa.etf.nrs.DAO.EmailDao;
 import ba.unsa.etf.nrs.DataClasses.Role;
 import ba.unsa.etf.nrs.DataClasses.User;
-import ba.unsa.etf.nrs.PosDAO.PosDAO;
+import ba.unsa.etf.nrs.DAO.PosDAO;
+import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -10,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -39,19 +40,26 @@ public class AddEditUserController {
     public GridPane idPane;
 
     private PosDAO dao;
+    private EmailDao emailDao;
     private User user = null;
+    private AuthService authService;
 
 
     public AddEditUserController(User user) {
         this.user = user;
+        dao = PosDAO.getInstance();
+        emailDao = EmailDao.getInstance();
+        this.authService = AuthService.getInstance();
     }
 
     public AddEditUserController() {
+        dao = PosDAO.getInstance();
+        emailDao = EmailDao.getInstance();
+        this.authService = AuthService.getInstance();
     }
 
     @FXML
     public void initialize() {
-        dao = PosDAO.getInstance();
         choiceBoxRole.setItems(FXCollections.observableArrayList(dao.getRoles()));
         if(user != null) {
             fldFirstName.setText(user.getFirstName());
@@ -63,7 +71,20 @@ public class AddEditUserController {
             fldPassword.setText(user.getPassword());
             fldPassword.setDisable(true);
             System.out.println(dao.getUserRole(user).getName());
-            choiceBoxRole.getSelectionModel().select(dao.getUserRole(user));
+            Role role = dao.getUserRole(user);
+            if(role != null) {
+                Role selectedRole = role;
+                for (Role choiceRole : choiceBoxRole.getItems()) {
+                    if (choiceRole.getId() == role.getId()) {
+                        selectedRole = choiceRole;
+                    }
+                }
+
+                choiceBoxRole.getSelectionModel().select(selectedRole);
+            } else {
+                choiceBoxRole.getSelectionModel().selectFirst();
+            }
+
            /* switch (dao.getUserRole(user).getName()) {
                 case "admin":
                     choiceBoxRole.getSelectionModel().selectFirst();
@@ -97,21 +118,11 @@ public class AddEditUserController {
 
         new Thread(() -> {
             try {
-                URL location = new URL("https://api.email-validator.net/api/verify?EmailAddress=" + fldEmail.getText()+ "&APIKey=ev-8e447efe7fc80859c2328a1b795475bc");
+                JSONObject jo = emailDao.getData(fldEmail.getText());
+
                 fldEmail.getStyleClass().removeAll("ok");
                 fldEmail.getStyleClass().removeAll("notOk");
                 fldEmail.getStyleClass().add("checking");
-                String json = "";
-                String line = null;
-                BufferedReader entry = null;
-                try {
-                    entry = new BufferedReader(new InputStreamReader(location.openStream(), StandardCharsets.UTF_8));
-                    while ((line = entry.readLine()) != null)
-                        json = json + line;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                JSONObject jo = new JSONObject(json);
                 if (jo.getInt("status") == 302) {
                     Platform.runLater(() -> {
                         fldEmail.getStyleClass().removeAll("checking");

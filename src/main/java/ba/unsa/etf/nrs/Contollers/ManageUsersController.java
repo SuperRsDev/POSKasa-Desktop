@@ -1,7 +1,7 @@
 package ba.unsa.etf.nrs.Contollers;
 
 import ba.unsa.etf.nrs.DataClasses.User;
-import ba.unsa.etf.nrs.PosDAO.PosDAO;
+import ba.unsa.etf.nrs.DAO.PosDAO;
 import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

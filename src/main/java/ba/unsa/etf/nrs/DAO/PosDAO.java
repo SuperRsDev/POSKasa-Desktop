@@ -1,9 +1,8 @@
-package ba.unsa.etf.nrs.PosDAO;
+package ba.unsa.etf.nrs.DAO;
 
 import ba.unsa.etf.nrs.DataClasses.*;
 import ba.unsa.etf.nrs.NoInternetException;
 import ba.unsa.etf.nrs.Services.AuthService;
-import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,7 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class PosDAO {
+public class PosDAO extends BaseDAO {
     private static PosDAO instance;
     private static Connection conn;
     private AuthService authService;
@@ -67,14 +66,9 @@ public class PosDAO {
         }
     }
 
-    private URL getUrl(String uri) {
-        URL url = null;
-        try {
-            url = new URL(baseUri + uri);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return url;
+    @Override
+    protected String getBaseUri() {
+        return baseUri;
     }
 
     private JSONArray getJsonArrayFromUrl(URL url) {
@@ -106,15 +100,6 @@ public class PosDAO {
         return this.getJsonArrayFromUrl(url);
     }
 
-    private HttpURLConnection getBaseHttpConnection(URL url, String method) throws IOException {
-        HttpURLConnection con;
-        con = (HttpURLConnection) url.openConnection();
-        con.setRequestProperty("Access-Control-Allow-Origin", "*");
-        con.setRequestMethod(method);
-        con.setRequestProperty("Content-Type", "application/json");
-
-        return con;
-    }
 
     private HttpURLConnection getHttpConnection(URL url, String method) throws IOException {
         HttpURLConnection con = this.getBaseHttpConnection(url, method);
@@ -129,25 +114,6 @@ public class PosDAO {
             HttpURLConnection con = this.getHttpConnection(url, "GET");
             InputStream in = con.getInputStream();
             return this.getReaderJson(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-            new NoInternetException();
-        }
-        return null;
-    }
-
-    private String getReaderJson(InputStream in) {
-        try {
-            BufferedReader entry = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
-            StringBuilder json = new StringBuilder();
-            String line = "";
-            while ((line = entry.readLine()) != null) {
-                json.append(line);
-            }
-
-            entry.close();
-            if (json.length() == 0) return null;
-            return (json.toString());
         } catch (IOException e) {
             e.printStackTrace();
             new NoInternetException();
@@ -280,7 +246,7 @@ public class PosDAO {
     public Order getOrder(int id) {
         JSONObject jo = this.getJsonObjectData("orders/" + id);
         if (jo == null) return null;
-        Order order = null;
+        Order order;
         LocalDate date = LocalDate.parse(jo.getString("date"), formatter);
         order = new Order(jo.getInt("id"), getUser(jo.getInt("employeeId")), getPaymentType(jo.getInt("paymentTypeId")), date,
                 jo.getString("status"), jo.getString("orderType"));
@@ -313,8 +279,6 @@ public class PosDAO {
         }
         return result;
     }
-
-
 
     public Role getUserRole(User user) {
         JSONArray jsonArray = getJsonArrayData("userRolesfor/" + user.getUsername());

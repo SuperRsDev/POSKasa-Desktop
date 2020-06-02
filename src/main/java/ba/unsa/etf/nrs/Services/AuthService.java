@@ -1,11 +1,13 @@
 package ba.unsa.etf.nrs.Services;
 
+import ba.unsa.etf.nrs.DataClasses.Role;
+
 public class AuthService {
     private static AuthService instance;
 
     private String token;
     private String username;
-    private String role;
+    private Role role;
 
     private AuthService() {}
 
@@ -16,7 +18,7 @@ public class AuthService {
         return instance;
     }
 
-    public void setData(String token, String username, String role) {
+    public void setData(String token, String username, Role role) {
         this.role = role;
         this.username = username;
         this.token = token;
@@ -30,11 +32,11 @@ public class AuthService {
         return username;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

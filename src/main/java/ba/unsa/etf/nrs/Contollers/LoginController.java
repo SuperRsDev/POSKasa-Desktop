@@ -3,7 +3,7 @@ package ba.unsa.etf.nrs.Contollers;
 import ba.unsa.etf.nrs.DataClasses.Role;
 import ba.unsa.etf.nrs.DataClasses.User;
 import ba.unsa.etf.nrs.NoInternetException;
-import ba.unsa.etf.nrs.PosDAO.PosDAO;
+import ba.unsa.etf.nrs.DAO.PosDAO;
 import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -195,7 +195,7 @@ public class LoginController {
         Role role = dao.getUserRole(user);
         if (role == null) return null;
 
-        authService.setRole(role.getName());
+        authService.setRole(role);
         return token;
     }
 }
