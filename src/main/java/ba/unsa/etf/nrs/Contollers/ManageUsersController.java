@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -127,4 +128,12 @@ public class ManageUsersController {
         stage.close();
     }
 
+    public void deleteUserAction(ActionEvent actionEvent) {
+        int input = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite obrisati korisnika?");
+        if (input == 0) { //0 = yes, 1 = no, 2 = cancel
+            dao.deleteUser(listUsers.getSelectionModel().getSelectedItem().getId());
+            listUsers.refresh();
+        }
+        
+    }
 }

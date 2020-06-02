@@ -35,9 +35,16 @@
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button fx:id="btnAddUser" mnemonicParsing="false" onAction="#addUserAction" prefHeight="29.0" prefWidth="125.0" style="-fx-background-color: lawngreen;" text="%Dodaj_korisnika" GridPane.rowIndex="2">
+        <Button fx:id="btnAddUser" mnemonicParsing="false" onAction="#addUserAction" prefHeight="29.0" prefWidth="130.0" style="-fx-background-color: greenyellow;" text="%Dodaj_korisnika" GridPane.rowIndex="2">
             <GridPane.margin>
-                <Insets left="140.0" top="20.0" />
+                <Insets left="120.0" top="20.0" />
+            </GridPane.margin>
+            <font>
+                <Font name="Arial Black" size="12.218181610107422" />
+            </font></Button>
+        <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#deleteUserAction" prefHeight="29.0" prefWidth="110.0" style="-fx-background-color: lightpink;" text="%Obrisi" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="265.0" top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />

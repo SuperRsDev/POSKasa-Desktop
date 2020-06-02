@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import java.net.URL?>
-<GridPane fx:id="idPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="100.0" prefHeight="618.0" prefWidth="377.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="idPaneAddUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="100.0" prefHeight="618.0" prefWidth="377.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/css/validation.css" />
     </stylesheets>
@@ -113,14 +113,14 @@
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: lawngreen;" text="%Sacuvaj" GridPane.columnIndex="1" GridPane.rowIndex="11">
+        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: greenyellow;" text="%Sacuvaj" GridPane.columnIndex="1" GridPane.rowIndex="11">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: crimson;" text="%Obrisi" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
+        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: lightpink;" text="%Obrisi" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>

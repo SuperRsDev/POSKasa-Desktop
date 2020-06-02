@@ -12,8 +12,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.json.JSONObject;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,11 +35,11 @@ public class AddEditUserController {
     public TextField fldEmail;
     public TextField  fldPhone;
     public TextField fldUsername;
-    public TextField fldPassword;
+    public PasswordField fldPassword;
     public ChoiceBox<Role> choiceBoxRole;
     public DatePicker dpBirthDate;
 
-    public GridPane idPane;
+    public GridPane idPaneAddUser;
 
     private PosDAO dao;
     private EmailDao emailDao;
@@ -84,21 +86,12 @@ public class AddEditUserController {
             } else {
                 choiceBoxRole.getSelectionModel().selectFirst();
             }
-
-           /* switch (dao.getUserRole(user).getName()) {
-                case "admin":
-                    choiceBoxRole.getSelectionModel().selectFirst();
-                case "menadzer":
-                    choiceBoxRole.getSelectionModel().selectNext();
-                case "radnik":
-                    choiceBoxRole.getSelectionModel().selectLast();
-            }*/
             dpBirthDate.setValue(user.getBirthDate());
         } else choiceBoxRole.getSelectionModel().selectLast();
     }
 
     public void backAction(ActionEvent actionEvent) {
-        Stage stage = (Stage) idPane.getScene().getWindow();
+        Stage stage = (Stage) idPaneAddUser.getScene().getWindow();
         stage.close();
     }
 
@@ -109,6 +102,7 @@ public class AddEditUserController {
         sveOk &= isEmpty(fldAddress);
         sveOk &= isEmpty(fldEmail);
         sveOk &= isEmpty(fldUsername);
+        sveOk &= phoneOk(fldPhone);
 
         if (!sveOk){
             user = null;
@@ -138,6 +132,8 @@ public class AddEditUserController {
                 }
             } catch (Exception ex) {
             }
+            JOptionPane.showMessageDialog(null,
+                    "Uspješno ste sačuvali korisnika!");
         }).start();
 
         if (user == null) {
@@ -155,6 +151,22 @@ public class AddEditUserController {
             Role selectedRole = choiceBoxRole.getValue();
             dao.addUserRole(user, selectedRole);
         }
+
+
+    }
+
+    private boolean phoneOk(TextField fldPhone) {
+        String regexPattern = "(^060[0-9]{7})|(^06[1-3]{1}[0-9]{6})";
+        if (!fldPhone.getText().matches(regexPattern)) {
+            fldPhone.getStyleClass().removeAll("ok");
+            fldPhone.getStyleClass().add("notOk");
+            return false;
+        } else {
+            fldPhone.getStyleClass().removeAll("notOk");
+            fldPhone.getStyleClass().add("ok");
+        }
+        return true;
+
     }
 
     private boolean isEmpty(TextField field) {
@@ -169,7 +181,25 @@ public class AddEditUserController {
         return true;
     }
     public void deleteAction(ActionEvent actionEvent) {
-        Stage stage = (Stage) idPane.getScene().getWindow();
-        stage.close();
+       if(user != null) {
+           int input = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite obrisati korisnika?");
+           if (input == 0) { //0 = yes, 1 = no, 2 = cancel
+               dao.deleteUser(user.getId());
+               Stage stage = (Stage) idPaneAddUser.getScene().getWindow();
+               stage.close();
+           }
+           if (input == 1) { //0 = yes, 1 = no, 2 = cancel
+               Stage stage = (Stage) idPaneAddUser.getScene().getWindow();
+               stage.close();
+           }
+           if (input == 2) { //0 = yes, 1 = no, 2 = cancel
+               Stage stage = (Stage) idPaneAddUser.getScene().getWindow();
+               stage.close();
+           }
+       } else {
+           JOptionPane.showMessageDialog(null, "Ne možete obrisati korisnika kojeg niste ni kreirali!");
+       }
+
+
     }
 }

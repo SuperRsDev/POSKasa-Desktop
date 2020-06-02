@@ -1,8 +1,8 @@
 .ok {
-    -fx-control-inner-background: lime;
+    -fx-control-inner-background: greenyellow;
 }
 .notOk {
-    -fx-control-inner-background: orangered;
+    -fx-control-inner-background: lightpink;
 }
 .checking {
     -fx-control-inner-background: yellow;
