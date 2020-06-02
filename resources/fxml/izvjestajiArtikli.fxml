@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="600.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="idPaneReport2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.nrs.Contollers.ProductsReportController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="299.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="299.0" minWidth="10.0" prefWidth="299.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="254.0" minHeight="10.0" prefHeight="254.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="72.0" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ChoiceBox prefHeight="25.0" prefWidth="248.0">
-         <GridPane.margin>
-            <Insets left="40.0" />
-         </GridPane.margin></ChoiceBox>
-      <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="89.0" text="%Stampaj" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+      <Button fx:id="btnPrintNumeric" mnemonicParsing="false" onAction="#printNumericAction" prefHeight="34.0" prefWidth="169.0" text="%Stampaj_brojcani" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="50.0" />
          </GridPane.margin>
@@ -33,38 +28,27 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="%Nazad" GridPane.rowIndex="3">
+
+       <Button fx:id="btnPrintGraphic" mnemonicParsing="false" onAction="#printGraphicAction" prefHeight="34.0" prefWidth="169.0" text="%Stampaj_graficki" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+           <GridPane.margin>
+               <Insets right="50.0" />
+           </GridPane.margin>
+           <graphic>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@../img/print-icon.png" />
+                   </image>
+               </ImageView>
+           </graphic></Button>
+      <Button fx:id="btnBack" mnemonicParsing="false" prefHeight="25.0" onAction="#backAction" prefWidth="72.0" text="%Nazad" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="50.0" />
          </GridPane.margin>
       </Button>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-        <buttons>
-          <Button mnemonicParsing="false" text="%Danas" />
-            <Button mnemonicParsing="false" text="%7dana" />
-            <Button mnemonicParsing="false" text="%30dana" />
-        </buttons>
-         <GridPane.margin>
-            <Insets right="50.0" />
-         </GridPane.margin>
-      </ButtonBar>
-      <DatePicker GridPane.rowIndex="2" promptText="%Od">
-         <GridPane.margin>
-            <Insets left="80.0" />
-         </GridPane.margin>
-      </DatePicker>
-      <DatePicker GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" promptText="%Do">
-         <GridPane.margin>
-            <Insets right="80.0" />
-         </GridPane.margin>
-      </DatePicker>
-      <LineChart GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </LineChart>
+      <Label text="%izvjestaji_o_stanju_artikala" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </GridPane>

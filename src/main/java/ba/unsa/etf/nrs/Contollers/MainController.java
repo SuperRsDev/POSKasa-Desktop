@@ -228,7 +228,7 @@ public class MainController {
     public void openArticalReportAction(ActionEvent actionEvent) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/izvjestajiArtikli.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/productsSalesReport.fxml"), bundle);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Izvjestaj"));
@@ -242,7 +242,7 @@ public class MainController {
     public void statusReportAction(ActionEvent actionEvent) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/izvjestajiStatus.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/izvjestajiArtikli.fxml"), bundle);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Izvjestaj"));

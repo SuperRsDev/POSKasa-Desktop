@@ -134,6 +134,6 @@ public class ManageUsersController {
             dao.deleteUser(listUsers.getSelectionModel().getSelectedItem().getId());
             listUsers.refresh();
         }
-        
+
     }
 }
