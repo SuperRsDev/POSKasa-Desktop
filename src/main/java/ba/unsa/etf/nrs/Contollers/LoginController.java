@@ -109,6 +109,7 @@ public class LoginController {
     }
 
     public void loginAction(ActionEvent actionEvent) {
+        Thread thread = new Thread(() -> {
         if(NoInternetException.haveInternetConnectivity()) {
             if (fldUsername.getText().isEmpty()) {
                 fldUsername.getStyleClass().removeAll("ok");
@@ -123,7 +124,7 @@ public class LoginController {
                 fldPassword.getStyleClass().removeAll("ok");
                 fldPassword.getStyleClass().add("notOk");
             } else {
-                Thread thread = new Thread(() -> {
+
                     String token = this.getTokenData();
                     if (token == null) {
                         Platform.runLater(new Runnable() {
@@ -171,12 +172,14 @@ public class LoginController {
                             }
                         });
                     }
-                });
-                thread.start();
+
+
             }
         } else {
             NoInternetException.showAlert();
         }
+        });
+        thread.start();
     }
 
     private String getTokenData() {

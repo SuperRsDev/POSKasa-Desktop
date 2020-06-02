@@ -62,9 +62,18 @@ public class AddEditUserController {
             fldUsername.setText(user.getUsername());
             fldPassword.setText(user.getPassword());
             fldPassword.setDisable(true);
-            choiceBoxRole.setValue(dao.getUserRole(user));
+            System.out.println(dao.getUserRole(user).getName());
+            choiceBoxRole.getSelectionModel().select(dao.getUserRole(user));
+           /* switch (dao.getUserRole(user).getName()) {
+                case "admin":
+                    choiceBoxRole.getSelectionModel().selectFirst();
+                case "menadzer":
+                    choiceBoxRole.getSelectionModel().selectNext();
+                case "radnik":
+                    choiceBoxRole.getSelectionModel().selectLast();
+            }*/
             dpBirthDate.setValue(user.getBirthDate());
-        }
+        } else choiceBoxRole.getSelectionModel().selectLast();
     }
 
     public void backAction(ActionEvent actionEvent) {
@@ -103,7 +112,6 @@ public class AddEditUserController {
                     e.printStackTrace();
                 }
                 JSONObject jo = new JSONObject(json);
-                System.out.println(jo.getInt("status") + "       Amraaa");
                 if (jo.getInt("status") == 302) {
                     Platform.runLater(() -> {
                         fldEmail.getStyleClass().removeAll("checking");

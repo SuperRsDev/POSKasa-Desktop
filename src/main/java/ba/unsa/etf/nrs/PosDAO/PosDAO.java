@@ -322,7 +322,7 @@ public class PosDAO {
         Role role = null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
-            role = new Role(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
+            role = new Role(jo.getInt("id"), jo.getString("description"), jo.getString("name"));
         }
         return role;
     }
@@ -333,7 +333,7 @@ public class PosDAO {
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
-            Role role = new Role(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
+            Role role = new Role(jo.getInt("id"), jo.getString("description"),  jo.getString("name"));
             result.add(role);
 
         }
