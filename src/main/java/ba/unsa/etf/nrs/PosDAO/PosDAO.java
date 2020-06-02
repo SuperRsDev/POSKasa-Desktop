@@ -468,7 +468,7 @@ public class PosDAO {
         order.setId(id);
     }
     public void addUserRole(User user, Role role) {
-        URL url = this.getUrl("users/withUsername=" + user.getUsername());
+        URL url = this.getUrl("userRoles");
         JSONObject jsonOrder = new JSONObject();
         jsonOrder.put("userId", user.getId());
         jsonOrder.put("roleId", role.getId());
