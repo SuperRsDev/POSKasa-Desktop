@@ -135,8 +135,10 @@ public class AddEditUserController {
             user.setUsername(fldUsername.getText());
             user.setPassword(fldPassword.getText());
             user.setBirthDate(dpBirthDate.getValue());
-            dao.addUser(user);
-            dao.addUserRole(dao.getUserByUsername(user.getUsername()), choiceBoxRole.getValue());
+            int userId = dao.addUser(user);
+            user.setId(userId);
+            Role selectedRole = choiceBoxRole.getValue();
+            dao.addUserRole(user, selectedRole);
         }
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();

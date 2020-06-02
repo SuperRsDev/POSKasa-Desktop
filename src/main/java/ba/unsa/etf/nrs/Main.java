@@ -13,16 +13,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-  /*      ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"), bundle);
         primaryStage.setTitle("POS");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.show();
-*/
-        PosDAO dao = PosDAO.getInstance();
-        dao.getUserRole(dao.getUser(1));
-
 
 /*      Category category = new Category( "slatkisi", "opis");
         dao.addCategory(category);

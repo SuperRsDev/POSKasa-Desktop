@@ -345,9 +345,12 @@ public class PosDAO {
      */
 
     private int addViaHttp(JSONObject jsonObject, URL url) {
-        HttpURLConnection con;
         JSONObject jsonObjectReturn = this.postViaHttp(jsonObject, url, true);
         return Objects.requireNonNull(jsonObjectReturn).getInt("id");
+    }
+
+    private JSONObject addViaHttpWithoutResponseId(JSONObject jsonObject, URL url) {
+        return this.postViaHttp(jsonObject, url, true);
     }
 
     private JSONObject postViaHttp(JSONObject jsonObject, URL url, boolean shouldAuth) {
@@ -376,7 +379,7 @@ public class PosDAO {
         return jsonObjectReturn;
     }
 
-    public void addUser(User user) {
+    public int addUser(User user) {
         URL url = this.getUrl("users");
         JSONObject jsonUser = new JSONObject();
         jsonUser.put("id", user.getId());
@@ -393,6 +396,7 @@ public class PosDAO {
 
         int id = addViaHttp(jsonUser, url);
         user.setId(id);
+        return id;
     }
 
     public void addCategory(Category category) {
@@ -468,6 +472,7 @@ public class PosDAO {
         JSONObject jsonOrder = new JSONObject();
         jsonOrder.put("userId", user.getId());
         jsonOrder.put("roleId", role.getId());
+        JSONObject jo = addViaHttpWithoutResponseId(jsonOrder, url);
     }
 
 
