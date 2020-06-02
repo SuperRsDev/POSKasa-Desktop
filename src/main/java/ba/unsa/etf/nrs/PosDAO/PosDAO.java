@@ -243,23 +243,16 @@ public class PosDAO {
         User user = null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
-            LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
-            user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"),
-                    jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"),
-                    jo.getString("picture"), date, jo.getString("loginProvider"));
+            user = this.getUserFromJson(jo);
         }
         return user;
     }
 
-    public User getUserByUsername(String username, String password) {
-        URL url = null;
-        JSONObject jo = this.getJsonObjectData("users/" + username + "/" + password);
+    public User getUserByUsername(String username) {
+        JSONObject jo = this.getJsonObjectData("usersfor/" + username);
         if (jo == null) return null;
         User user;
-        LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
-        user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"),
-                jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"),
-                jo.getString("picture"), date, jo.getString("loginProvider"));
+        user = this.getUserFromJson(jo);
         return user;
     }
 
@@ -270,8 +263,7 @@ public class PosDAO {
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
-            LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
-            User user = new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"), jo.getString("password"), jo.getString("email"), jo.getString("phone"), jo.getString("address"), jo.getString("picture"), date, jo.getString("loginProvider"));
+            User user = this.getUserFromJson(jo);
             result.add(user);
         }
         return result;
@@ -323,8 +315,7 @@ public class PosDAO {
     }
 
     public Role getUserRole(User user) {
-        JSONArray jsonArray = getJsonArrayData("userRoles/" + user.getUsername());
-        System.out.println(jsonArray);
+        JSONArray jsonArray = getJsonArrayData("userRolesfor/" + user.getUsername());
         if (jsonArray == null) return null;
         Role role = null;
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -594,8 +585,14 @@ public class PosDAO {
         jsonPos.put("password", password);
 
         JSONObject response = postViaHttp(jsonPos, url, false);
+        if (response == null) return null;
         return response.getString("token");
     }
 
-
+    private User getUserFromJson(JSONObject jo) {
+        LocalDate date = LocalDate.parse(jo.getString("birthDate"), formatter);
+        return new User(jo.getInt("id"), jo.getString("firstName"), jo.getString("lastName"), jo.getString("username"),
+                null, jo.getString("email"), jo.getString("phone"), jo.getString("address"),
+                jo.getString("picture"), date, jo.getString("loginProvider"));
+    }
 }
