@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -52,7 +53,6 @@ public class AddEditUserController {
     public void initialize() {
         dao = PosDAO.getInstance();
         choiceBoxRole.setItems(FXCollections.observableArrayList(dao.getRoles()));
-        choiceBoxRole.getSelectionModel().selectLast();
         if(user != null) {
             fldFirstName.setText(user.getFirstName());
             fldLastName.setText(user.getLastName());
@@ -62,15 +62,7 @@ public class AddEditUserController {
             fldUsername.setText(user.getUsername());
             fldPassword.setText(user.getPassword());
             fldPassword.setDisable(true);
-            switch (dao.getUserRole(user).getName()){
-                case "admin":
-                    choiceBoxRole.getSelectionModel().selectFirst();
-                case "menadzer":
-                    choiceBoxRole.getSelectionModel().selectNext();
-                case "radnik":
-                    choiceBoxRole.getSelectionModel().selectLast();
-            }
-
+            choiceBoxRole.setValue(dao.getUserRole(user));
             dpBirthDate.setValue(user.getBirthDate());
         }
     }
@@ -93,12 +85,13 @@ public class AddEditUserController {
             return;
         }
 
-        try {
-            URL location = new URL("https://api.email-validator.net/api/verify?EmailAddress=" + fldEmail.getText()+ "&APIKey=ev-8e447efe7fc80859c2328a1b795475bc");
-            fldEmail.getStyleClass().removeAll("ok");
-            fldEmail.getStyleClass().removeAll("notOk");
-            fldEmail.getStyleClass().add("checking");
-            new Thread(() -> {
+
+        new Thread(() -> {
+            try {
+                URL location = new URL("https://api.email-validator.net/api/verify?EmailAddress=" + fldEmail.getText()+ "&APIKey=ev-8e447efe7fc80859c2328a1b795475bc");
+                fldEmail.getStyleClass().removeAll("ok");
+                fldEmail.getStyleClass().removeAll("notOk");
+                fldEmail.getStyleClass().add("checking");
                 String json = "";
                 String line = null;
                 BufferedReader entry = null;
@@ -109,7 +102,9 @@ public class AddEditUserController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if (!json.contains("\"status\":200")) {
+                JSONObject jo = new JSONObject(json);
+                System.out.println(jo.getInt("status") + "       Amraaa");
+                if (jo.getInt("status") == 302) {
                     Platform.runLater(() -> {
                         fldEmail.getStyleClass().removeAll("checking");
                         fldEmail.getStyleClass().add("notOk");
@@ -122,9 +117,10 @@ public class AddEditUserController {
                         stage.close();
                     });
                 }
-            }).start();
-        } catch (Exception ex) {
-        }
+            } catch (Exception ex) {
+            }
+        }).start();
+
         if (user == null) {
             user = new User();
             user.setFirstName(fldFirstName.getText());
@@ -140,8 +136,6 @@ public class AddEditUserController {
             Role selectedRole = choiceBoxRole.getValue();
             dao.addUserRole(user, selectedRole);
         }
-        Stage stage = (Stage) btnSave.getScene().getWindow();
-        stage.close();
     }
 
     private boolean isEmpty(TextField field) {

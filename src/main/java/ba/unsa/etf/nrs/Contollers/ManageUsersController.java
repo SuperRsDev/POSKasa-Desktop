@@ -48,6 +48,7 @@ public class ManageUsersController {
         dao = PosDAO.getInstance();
         // dodavanje korisnika iz baze za kategoriju
         listUsers.setItems(FXCollections.observableArrayList(dao.getUsers()));
+        listUsers.refresh();
         listUsers.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
