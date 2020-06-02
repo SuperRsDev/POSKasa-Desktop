@@ -225,10 +225,12 @@ public class MainController {
         }
     }
 
-    public void openArticalReportAction(ActionEvent actionEvent) {
+    public void openProductSalesReportAction(ActionEvent actionEvent) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/productsSalesReport.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/reports.fxml"), bundle);
+            ProductSalesReportController ctrl = new ProductSalesReportController();
+            fxmlLoader.setController(ctrl);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Izvjestaj"));
@@ -242,7 +244,9 @@ public class MainController {
     public void statusReportAction(ActionEvent actionEvent) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/izvjestajiArtikli.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/reports.fxml"), bundle);
+            ProductsReportController ctrl = new ProductsReportController();
+            fxmlLoader.setController(ctrl);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Izvjestaj"));
@@ -256,7 +260,9 @@ public class MainController {
     public void orderReportAction(ActionEvent actionEvent) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/izvjestajiNarudzbe.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/reports.fxml"), bundle);
+            MainController ctrl = new MainController();
+            fxmlLoader.setController(ctrl);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Izvjestaj"));
