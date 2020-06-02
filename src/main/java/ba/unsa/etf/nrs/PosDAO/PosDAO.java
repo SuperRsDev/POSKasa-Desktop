@@ -314,6 +314,8 @@ public class PosDAO {
         return result;
     }
 
+
+
     public Role getUserRole(User user) {
         JSONArray jsonArray = getJsonArrayData("userRolesfor/" + user.getUsername());
         if (jsonArray == null) return null;
@@ -325,14 +327,14 @@ public class PosDAO {
         return role;
     }
 
-    public List<String> getRoles() {
-        List<String> result = new ArrayList<>();
+    public List<Role> getRoles() {
+        List<Role> result = new ArrayList<>();
         JSONArray jsonArray = getJsonArrayData("roles");
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jo = jsonArray.getJSONObject(i);
             Role role = new Role(jo.getInt("id"), jo.getString("name"), jo.getString("description"));
-            result.add(jo.getString("name"));
+            result.add(role);
 
         }
         return result;
@@ -461,12 +463,11 @@ public class PosDAO {
         int id = addViaHttp(jsonOrder, url);
         order.setId(id);
     }
-    public void addUserRole(User user) {
+    public void addUserRole(User user, Role role) {
         URL url = this.getUrl("users/withUsername=" + user.getUsername());
         JSONObject jsonOrder = new JSONObject();
         jsonOrder.put("userId", user.getId());
-        jsonOrder.put("roleId", getUserRole(user));
-        int id = addViaHttp(jsonOrder, url);
+        jsonOrder.put("roleId", role.getId());
     }
 
 

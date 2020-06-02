@@ -32,7 +32,7 @@ public class AddEditUserController {
     public TextField  fldPhone;
     public TextField fldUsername;
     public TextField fldPassword;
-    public ChoiceBox<String> choiceBoxRole;
+    public ChoiceBox<Role> choiceBoxRole;
     public DatePicker dpBirthDate;
 
     public GridPane idPane;
@@ -52,6 +52,7 @@ public class AddEditUserController {
     public void initialize() {
         dao = PosDAO.getInstance();
         choiceBoxRole.setItems(FXCollections.observableArrayList(dao.getRoles()));
+        choiceBoxRole.getSelectionModel().selectLast();
         if(user != null) {
             fldFirstName.setText(user.getFirstName());
             fldLastName.setText(user.getLastName());
@@ -61,7 +62,15 @@ public class AddEditUserController {
             fldUsername.setText(user.getUsername());
             fldPassword.setText(user.getPassword());
             fldPassword.setDisable(true);
-            choiceBoxRole.getSelectionModel().select(dao.getUserRole(user).getName());
+            switch (dao.getUserRole(user).getName()){
+                case "admin":
+                    choiceBoxRole.getSelectionModel().selectFirst();
+                case "menadzer":
+                    choiceBoxRole.getSelectionModel().selectNext();
+                case "radnik":
+                    choiceBoxRole.getSelectionModel().selectLast();
+            }
+
             dpBirthDate.setValue(user.getBirthDate());
         }
     }
@@ -78,7 +87,6 @@ public class AddEditUserController {
         sveOk &= isEmpty(fldAddress);
         sveOk &= isEmpty(fldEmail);
         sveOk &= isEmpty(fldUsername);
-        sveOk &= isEmpty(fldPassword);
 
         if (!sveOk){
             user = null;
@@ -128,7 +136,7 @@ public class AddEditUserController {
             user.setPassword(fldPassword.getText());
             user.setBirthDate(dpBirthDate.getValue());
             dao.addUser(user);
-            dao.addUserRole(user);
+            dao.addUserRole(dao.getUserByUsername(user.getUsername()), choiceBoxRole.getValue());
         }
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
