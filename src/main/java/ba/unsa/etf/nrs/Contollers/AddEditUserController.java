@@ -1,9 +1,9 @@
 package ba.unsa.etf.nrs.Contollers;
 
 import ba.unsa.etf.nrs.DAO.EmailDao;
+import ba.unsa.etf.nrs.DAO.PosDAO;
 import ba.unsa.etf.nrs.DataClasses.Role;
 import ba.unsa.etf.nrs.DataClasses.User;
-import ba.unsa.etf.nrs.DAO.PosDAO;
 import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -14,17 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.json.JSONObject;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 public class AddEditUserController {
 

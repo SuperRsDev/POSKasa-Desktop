@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="PosKasa-Desktop" target="1.8" />
+      <module name="PosKasa-Desktop" target="1.13" />
     </bytecodeTargetLevel>
   </component>
 </project>
