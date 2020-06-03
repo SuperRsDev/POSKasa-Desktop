@@ -58,7 +58,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem fx:id="mItemEdit" mnemonicParsing="false" text="%Uredi_profil" />
+                  <MenuItem fx:id="mItemEdit" mnemonicParsing="false" onAction="#editProfileAction" text="%Uredi_profil" />
                   <MenuItem fx:id="mItemLogOut" mnemonicParsing="false" onAction="#logOutAction" text="%Odjava" />
                </items>
                <graphic>
@@ -158,7 +158,7 @@
                   <Font name="Arial Black" size="12.218181610107422" />
                </font>
             </Button>
-            <Button fx:id="btnArticalReport" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openArticalReportAction" prefHeight="78.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Artikli" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="btnArticalReport" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openProductSalesReportAction" prefHeight="78.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Artikli" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -170,17 +170,6 @@
                </font>
             </Button>
             <Button fx:id="btnStatusReport" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#statusReportAction" prefHeight="76.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Stanja" textAlignment="CENTER" wrapText="true">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="10.0" top="5.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Arial Black" size="12.218181610107422" />
-               </font>
-            </Button>
-            <Button fx:id="btnOrders" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#orderReportAction" prefHeight="66.0" prefWidth="150.0" style="-fx-background-color: #58CCED;" text="%Narudzbe" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>

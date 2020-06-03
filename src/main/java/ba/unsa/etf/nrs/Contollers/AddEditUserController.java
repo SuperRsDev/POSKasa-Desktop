@@ -10,13 +10,17 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.json.JSONObject;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -38,9 +42,9 @@ public class AddEditUserController {
     public PasswordField fldPassword;
     public ChoiceBox<Role> choiceBoxRole;
     public DatePicker dpBirthDate;
-
+    public ImageView imageId;
     public GridPane idPaneAddUser;
-
+    private String path = "user.png";
     private PosDAO dao;
     private EmailDao emailDao;
     private User user = null;
@@ -72,6 +76,7 @@ public class AddEditUserController {
             fldUsername.setText(user.getUsername());
             fldPassword.setText(user.getPassword());
             fldPassword.setDisable(true);
+            imageId.setImage(new Image(user.getPicture()));
             System.out.println(dao.getUserRole(user).getName());
             Role role = dao.getUserRole(user);
             if(role != null) {
@@ -146,6 +151,7 @@ public class AddEditUserController {
             user.setUsername(fldUsername.getText());
             user.setPassword(fldPassword.getText());
             user.setBirthDate(dpBirthDate.getValue());
+            user.setPicture(path);
             int userId = dao.addUser(user);
             user.setId(userId);
             Role selectedRole = choiceBoxRole.getValue();
@@ -199,7 +205,25 @@ public class AddEditUserController {
        } else {
            JOptionPane.showMessageDialog(null, "Ne možete obrisati korisnika kojeg niste ni kreirali!");
        }
+    }
 
-
+    public void changePicAction(ActionEvent actionEvent) {
+        JFileChooser file = new JFileChooser();
+        file.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","gif","png");
+        file.addChoosableFileFilter(filter);
+        int result = file.showSaveDialog(null);
+        //if the user click on save in Jfilechooser
+        if(result == JFileChooser.APPROVE_OPTION){
+            File selectedFile = file.getSelectedFile();
+            this.path = selectedFile.toURI().toString();
+            System.out.println(path);
+            Image image = new Image(path);
+            imageId.setImage(image);
+        }
+        //if the user click on save in Jfilechooser
+        else if(result == JFileChooser.CANCEL_OPTION){
+            System.out.println("No File Select");
+        }
     }
 }

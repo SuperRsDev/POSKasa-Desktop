@@ -33,7 +33,7 @@ public class ProductSalesReportController {
 
     @FXML
     public void initialize() {
-        lblTitle.setText("Izvjestaji o najprodavanijim artiklima");
+        lblTitle.setText("%Izvjestaji_o_najprodavanijim_artiklima");
     }
 
     public void backAction(ActionEvent actionEvent) {

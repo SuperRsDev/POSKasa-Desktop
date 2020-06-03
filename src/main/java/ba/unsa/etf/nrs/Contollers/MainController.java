@@ -257,23 +257,6 @@ public class MainController {
             e.printStackTrace();
         }
     }
-    public void orderReportAction(ActionEvent actionEvent) {
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/reports.fxml"), bundle);
-            OrdersReportController ctrl = new OrdersReportController();
-            fxmlLoader.setController(ctrl);
-            Parent root = fxmlLoader.load();
-            Stage newStage = new Stage();
-            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Izvjestaj"));
-            newStage.setScene(new Scene(root));
-            newStage.setResizable(false);
-            newStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public void logOutAction(ActionEvent actionEvent) {
         try {
@@ -316,23 +299,23 @@ public class MainController {
         }
     }
 
-/*
+
     public void editProfileAction(ActionEvent actionEvent) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
-            DodajKorisnikaController ctrl = new DodajKorisnikaController(dao.getUserByUsername(username));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addEditUser.fxml"), bundle);
+            AddEditUserController ctrl = new AddEditUserController(dao.getUserByUsername(this.authService.getUsername()));
             fxmlLoader.setController(ctrl);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
-            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_korisnika"));
+            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Uredi_profil"));
             newStage.setScene(new Scene(root));
             newStage.setResizable(false);
             newStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
 
 

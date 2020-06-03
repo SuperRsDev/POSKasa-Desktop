@@ -25,7 +25,7 @@ public class Main extends Application {
         Product product = new Product("Čokolada", 50, "dostupan", "mliječna čokolada", 2, 1, dao.getCategory(3));
         dao.addProduct(product);
 
-        User user = new User("Neko", "Nekic2", "nenkic2", "1234", "nnekic2@etf.unsa.ba", "062345678", "Adresa 123", "User-mapping.png", LocalDate.now(), "loginProvider");
+        User user = new User("Neko", "Nekic2", "nenkic2", "1234", "nnekic2@etf.unsa.ba", "062345678", "Adresa 123", "user.png", LocalDate.now(), "loginProvider");
         dao.addUser(user);
 
         Order order = new Order(dao.getUser(1), dao.getPaymentType(1), LocalDate.now(), "status", "orderType");
