@@ -3,6 +3,7 @@ package ba.unsa.etf.nrs.Contollers;
 import ba.unsa.etf.nrs.DataClasses.Category;
 import ba.unsa.etf.nrs.DataClasses.Product;
 import ba.unsa.etf.nrs.DAO.PosDAO;
+import ba.unsa.etf.nrs.DataClasses.User;
 import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -147,6 +149,27 @@ public class MainController {
 
         for (Product p : products) {
             Button button = new Button(p.getName() + ": " + p.getSellingPrice() + "KM");
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent click) {
+                    if (click.getClickCount() == 2) {
+                        Product currentProduct = p;
+                        try {
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addEditProduct.fxml"));
+                            AddEditProductController ctrl = new AddEditProductController(currentProduct);
+                            fxmlLoader.setController(ctrl);
+                            Parent root = fxmlLoader.load();
+                            Stage newStage = new Stage();
+                            newStage.setTitle("Dodaj artikal");
+                            newStage.setScene(new Scene(root));
+                            newStage.setResizable(false);
+                            newStage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
             buttonList.add(button);
         }
 
@@ -197,6 +220,8 @@ public class MainController {
                 try {
                     ResourceBundle bundle = ResourceBundle.getBundle("Translation");
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addEditProduct.fxml"), bundle);
+                    AddEditProductController ctrl = new AddEditProductController();
+                    fxmlLoader.setController(ctrl);
                     Parent root = fxmlLoader.load();
                     Stage newStage = new Stage();
                     newStage.setTitle(ResourceBundle.getBundle("Translation").getString("dodaj_artikal"));
