@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.time.LocalDate;
 
 public class AddEditUserController {
 
@@ -38,7 +39,7 @@ public class AddEditUserController {
     public DatePicker dpBirthDate;
     public ImageView imageId;
     public GridPane idPaneAddUser;
-    private String path = "user.png";
+    private String path = "resources/img/user.png";
     private PosDAO dao;
     private EmailDao emailDao;
     private User user = null;
@@ -71,7 +72,6 @@ public class AddEditUserController {
             fldPassword.setText(user.getPassword());
             fldPassword.setDisable(true);
             imageId.setImage(new Image(user.getPicture()));
-            System.out.println(dao.getUserRole(user).getName());
             Role role = dao.getUserRole(user);
             if(role != null) {
                 Role selectedRole = role;
@@ -102,6 +102,7 @@ public class AddEditUserController {
         sveOk &= isEmpty(fldEmail);
         sveOk &= isEmpty(fldUsername);
         sveOk &= phoneOk(fldPhone);
+        sveOk &= dateOk(dpBirthDate.getValue());
 
         if (!sveOk){
             user = null;
@@ -150,9 +151,21 @@ public class AddEditUserController {
             user.setId(userId);
             Role selectedRole = choiceBoxRole.getValue();
             dao.addUserRole(user, selectedRole);
+        } else dao.updateUser(user.getId(), fldFirstName.getText(), fldLastName.getText(), fldUsername.getText(), user.getPassword(),
+                fldEmail.getText(), fldPhone.getText(), fldAddress.getText(), path, dpBirthDate.getValue(), user.getLoginProvider());
+    }
+
+    private boolean dateOk(LocalDate date) {
+        //mora imati 18 godina
+        if (!date.isBefore(LocalDate.now().minusYears(18))) {
+            dpBirthDate.getStyleClass().removeAll("ok");
+            dpBirthDate.getStyleClass().add("notOk");
+            return false;
+        } else {
+            dpBirthDate.getStyleClass().removeAll("notOk");
+            dpBirthDate.getStyleClass().add("ok");
         }
-
-
+        return date.isBefore(LocalDate.now().minusYears(18));
     }
 
     private boolean phoneOk(TextField fldPhone) {

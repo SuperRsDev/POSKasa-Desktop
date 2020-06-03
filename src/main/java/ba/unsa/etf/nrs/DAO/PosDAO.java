@@ -450,11 +450,11 @@ public class PosDAO extends BaseDAO {
             con = this.getHttpConnection(url, "DELETE");
             con.setDoOutput(true);
             con.connect();
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
+/*            DataOutputStream out = new DataOutputStream(con.getOutputStream());
             out.write(id);
             out.flush();
             out.close();
-
+*/
             String json = this.getReaderJson(con.getInputStream());
             if (json == null) return;
         } catch (ProtocolException e) {

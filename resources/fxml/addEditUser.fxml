@@ -32,9 +32,6 @@
     </rowConstraints>
     <children>
         <ImageView fx:id="imageId" fitHeight="82.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-            <image>
-                <Image url="@../img/user.png" />
-            </image>
             <GridPane.margin>
                 <Insets bottom="20.0" />
             </GridPane.margin>
