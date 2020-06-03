@@ -93,7 +93,7 @@ public class MainController {
         //dodavanje kategorija iz baze
 
         String categoryButtonCssProps = "-fx-pref-height:25.0; -fx-pref-width:158.0;";
-        ArrayList<Category> categories = dao.getCategories();
+        List<Category> categories = dao.getCategories();
         idCategoryName.setText(categories.get(0).getName());
 
         List<Button> categoryButtonList = new ArrayList<>();
@@ -196,7 +196,7 @@ public class MainController {
             public void handle(Event event) {
                 try {
                     ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/dodaj_artikal.fxml"), bundle);
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addEditProduct.fxml"), bundle);
                     Parent root = fxmlLoader.load();
                     Stage newStage = new Stage();
                     newStage.setTitle(ResourceBundle.getBundle("Translation").getString("dodaj_artikal"));

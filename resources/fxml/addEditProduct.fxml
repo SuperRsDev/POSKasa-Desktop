@@ -7,13 +7,14 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="100.0" prefHeight="398.0" prefWidth="350.0" style="-fx-background-color: #3895D3; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints maxWidth="146.0" minWidth="131.0" prefWidth="146.0" />
+        <ColumnConstraints maxWidth="177.0" minWidth="10.0" prefWidth="162.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints />
         <RowConstraints maxHeight="43.145453153247715" minHeight="20.145453153247715" prefHeight="41.272725910785816" />
         <RowConstraints />
+      <RowConstraints />
         <RowConstraints />
         <RowConstraints />
         <RowConstraints />
@@ -37,55 +38,60 @@
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Cijena artikla: " GridPane.rowIndex="3">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Nabavna cijena:" GridPane.rowIndex="3">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Količina artikla: " GridPane.rowIndex="4">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Prodajna cijena:" GridPane.rowIndex="4">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="124.0" text="Kategorija artikla: " GridPane.rowIndex="5">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Količina artikla: " GridPane.rowIndex="5">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Status artikla: " GridPane.rowIndex="6">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="124.0" text="Kategorija artikla: " GridPane.rowIndex="6">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <TextField promptText="Ime artikla" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="Status artikla: " GridPane.rowIndex="7">
+            <font>
+                <Font name="Arial Bold" size="12.218181610107422" />
+            </font></Label>
+        <TextField fx:id="fldName" promptText="Ime artikla" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets />
             </GridPane.margin></TextField>
-        <TextField promptText="Opis" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <TextField fx:id="fldDescription" promptText="Opis" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets />
             </GridPane.margin></TextField>
-        <Button mnemonicParsing="false" text="Nazad" GridPane.rowIndex="7">
+        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#backAction" text="Nazad" GridPane.rowIndex="8">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="72.0" style="-fx-background-color: lawngreen;" text="Sačuvaj" GridPane.columnIndex="1" GridPane.rowIndex="7">
+        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveAction" prefHeight="29.0" prefWidth="72.0" style="-fx-background-color: lawngreen;" text="Sačuvaj" GridPane.columnIndex="1" GridPane.rowIndex="8">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="78.0" style="-fx-background-color: crimson;" text="Obriši" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteAction" prefHeight="29.0" prefWidth="78.0" style="-fx-background-color: crimson;" text="Obriši" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-      <ChoiceBox fx:id="choiceKategorija" prefHeight="25.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <ChoiceBox fx:id="choiceStatus" prefHeight="25.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <Spinner prefHeight="25.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Spinner prefHeight="25.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <ChoiceBox fx:id="choiceCategory" prefHeight="25.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <ChoiceBox fx:id="choiceStatus" prefHeight="25.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="fldUnitPrice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="fldSellingPrice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <TextField fx:id="fldQuantity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     </children>
     <padding>
         <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />

@@ -161,8 +161,8 @@ public class PosDAO extends BaseDAO {
         return category;
     }
 
-    public ArrayList<Category> getCategories() {
-        ArrayList<Category> result = new ArrayList<>();
+    public List<Category> getCategories() {
+        List<Category> result = new ArrayList<>();
         JSONArray jsonArray = getJsonArrayData("categories");
         if (jsonArray == null) return null;
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -375,7 +375,7 @@ public class PosDAO extends BaseDAO {
         category.setId(id);
     }
 
-    public void addProduct(Product product) {
+    public int addProduct(Product product) {
         URL url = this.getUrl("products");
         JSONObject jsonProduct = new JSONObject();
 
@@ -390,6 +390,7 @@ public class PosDAO extends BaseDAO {
 
         int id = addViaHttp(jsonProduct, url);
         product.setProductId(id);
+        return id;
     }
 
     public void addPos(POS pos) {
