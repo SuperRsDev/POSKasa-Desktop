@@ -261,7 +261,7 @@ public class MainController {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/reports.fxml"), bundle);
-            MainController ctrl = new MainController();
+            OrdersReportController ctrl = new OrdersReportController();
             fxmlLoader.setController(ctrl);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();

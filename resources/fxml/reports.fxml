@@ -13,11 +13,12 @@
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="129.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="btnPrintNumeric" mnemonicParsing="false" onAction="#printNumericAction" prefHeight="34.0" prefWidth="169.0" text="%Stampaj_brojcani" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <Button fx:id="btnPrintNumeric" mnemonicParsing="false" onAction="#printNumericAction" prefHeight="34.0" prefWidth="169.0" text="%Stampaj_brojcani" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="50.0" />
          </GridPane.margin>
@@ -29,7 +30,7 @@
             </ImageView>
          </graphic></Button>
 
-       <Button fx:id="btnPrintGraphic" mnemonicParsing="false" onAction="#printGraphicAction" prefHeight="34.0" prefWidth="169.0" text="%Stampaj_graficki" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+       <Button fx:id="btnPrintGraphic" mnemonicParsing="false" onAction="#printGraphicAction" prefHeight="34.0" prefWidth="169.0" text="%Stampaj_graficki" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
            <GridPane.margin>
                <Insets right="50.0" />
            </GridPane.margin>
@@ -40,7 +41,7 @@
                    </image>
                </ImageView>
            </graphic></Button>
-      <Button fx:id="btnBack" mnemonicParsing="false" prefHeight="25.0" onAction="#backAction" prefWidth="72.0" text="%Nazad" GridPane.rowIndex="2">
+      <Button fx:id="btnBack" mnemonicParsing="false" onAction="#backAction" prefHeight="25.0" prefWidth="72.0" text="%Nazad" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="50.0" />
          </GridPane.margin>
@@ -50,5 +51,15 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <DatePicker fx:id="dateFrom" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="100.0" />
+         </GridPane.margin>
+      </DatePicker>
+      <DatePicker fx:id="dateTo" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="30.0" />
+         </GridPane.margin>
+      </DatePicker>
    </children>
 </GridPane>
