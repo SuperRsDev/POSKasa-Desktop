@@ -55,16 +55,6 @@ public class PosDAO extends BaseDAO {
     private PosDAO() {
         try {
 
-            /*Class.forName("org.postgresql.Driver");
-            authService = AuthService.getInstance();
-            int port = 5432;
-            String dbUsername = "bzxhujhu";
-            String dbPassword = "MyT99Lbe6Xp0xgxIDAPrhRTU1YHbElbD";
-            String sqlDialect = "postgressql";
-            String host = "balarama.db.elephantsql.com";
-            String dbName = "bzxhujhu";
-            String useSSL = "true";
-*/
             Class.forName("com.mysql.cj.jdbc.Driver");
             authService = AuthService.getInstance();
             int port = 3308;

@@ -66,7 +66,7 @@ public class MainController {
     public void initialize() {
         dao = dao.getInstance();
         lblDate.setText(LocalDate.now().format(formatter));
-        if ("menadzer".equals(this.authService.getRole())) {
+        if ("menadzer".equals(this.authService.getRole().getName())) {
             btnEmployees.setDisable(true);
         }
 

@@ -68,7 +68,8 @@ public class ManageUsersController {
                         newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_korisnika"));
                         newStage.setScene(new Scene(root));
                         newStage.setResizable(false);
-                        newStage.show();
+                        newStage.showAndWait();
+                        listUsers.refresh();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
