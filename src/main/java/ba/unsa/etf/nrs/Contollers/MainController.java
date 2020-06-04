@@ -3,7 +3,6 @@ package ba.unsa.etf.nrs.Contollers;
 import ba.unsa.etf.nrs.DataClasses.Category;
 import ba.unsa.etf.nrs.DataClasses.Product;
 import ba.unsa.etf.nrs.DAO.PosDAO;
-import ba.unsa.etf.nrs.DataClasses.User;
 import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -164,6 +163,7 @@ public class MainController {
                             newStage.setScene(new Scene(root));
                             newStage.setResizable(false);
                             newStage.show();
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -238,7 +238,7 @@ public class MainController {
     public void addCategoryAction(ActionEvent actionEvent) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/dodaj_kategoriju.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addCategory.fxml"), bundle);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_kategoriju"));
