@@ -18,45 +18,45 @@
         <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
     </rowConstraints>
     <children>
-        <Label alignment="CENTER" prefHeight="27.0" prefWidth="321.0" text="Dodaj kategoriju" GridPane.columnSpan="2147483647">
+        <Label alignment="CENTER" prefHeight="27.0" prefWidth="321.0" text="%Dodaj_kategoriju" GridPane.columnSpan="2147483647">
             <font>
                 <Font name="Arial Black" size="18.0" />
             </font>
             <GridPane.margin>
                 <Insets bottom="20.0" />
             </GridPane.margin></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="125.0" text="Naziv kategorije: " GridPane.rowIndex="1">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="125.0" text="%Naziv: " GridPane.rowIndex="1">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="127.0" text="Opis kategorije: " GridPane.rowIndex="2">
+        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="127.0" text="Opis: " GridPane.rowIndex="2">
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <TextField fx:id="fldName" promptText="Ime kategorije" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <TextField fx:id="fldName" promptText="%Naziv: " GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets top="10.0" />
             </GridPane.margin></TextField>
-        <TextField fx:id="fldDescription" promptText="Opis" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <TextField fx:id="fldDescription" promptText="%Opis: " GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets top="10.0" />
             </GridPane.margin>
         </TextField>
-        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#backAction" text="Nazad" GridPane.rowIndex="3">
+        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#backAction" text="%Nazad" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: greenyellow;" text="Sačuvaj" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: greenyellow;" text="%Sacuvaj" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: lightpink;" text="Obriši" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: lightpink;" text="%Obrisi" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
