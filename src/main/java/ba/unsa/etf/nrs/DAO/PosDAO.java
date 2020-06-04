@@ -26,7 +26,7 @@ public class PosDAO extends BaseDAO {
     private static PosDAO instance;
     private static Connection conn;
     private AuthService authService;
-    private static final String baseUri = "http://localhost:8080/api/";
+    private static final String baseUri = "https://poskasa-api.herokuapp.com/api/";
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
 
     public static PosDAO getInstance() {
