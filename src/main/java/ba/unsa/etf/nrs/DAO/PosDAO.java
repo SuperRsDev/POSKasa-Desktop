@@ -59,7 +59,12 @@ public class PosDAO extends BaseDAO {
             int port = 3308;
             String dbUsername = "root";
             String dbPassword = "root";
-            String url = "jdbc:mysql://localhost:" + port + "/dbnrs_pos20?useSSL=false"; //podložno promjenama shodno koji port koristi server
+            String sqlDialect = "mysql";
+            String host = "localhost";
+            String dbName = "dbnrs_pos20";
+            String useSSL = "false";
+
+            String url = "jdbc:"+ sqlDialect + "://" + host + ":" + port + "/"+ dbName+ "?useSSL=" + useSSL; //podložno promjenama shodno koji port koristi server
             conn = DriverManager.getConnection(url, dbUsername, dbPassword);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
