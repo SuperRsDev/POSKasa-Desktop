@@ -156,7 +156,7 @@ public class LoginController {
                         Platform.runLater(() -> {
                             exitAction(actionEvent);
                             try {
-                                if(!choosen) Locale.setDefault(new Locale("bs","BA"));
+                                if(!bosnian) Locale.setDefault(new Locale("en","US"));
                                 ResourceBundle bundle = ResourceBundle.getBundle("Translation");
                                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
                                 MainController ctrl = new MainController();

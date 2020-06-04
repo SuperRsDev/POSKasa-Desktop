@@ -363,7 +363,7 @@ public class PosDAO extends BaseDAO {
         return id;
     }
 
-    public void addCategory(Category category) {
+    public int addCategory(Category category) {
         URL url = this.getUrl("categories");
         JSONObject jsonCategory = new JSONObject();
 
@@ -373,6 +373,7 @@ public class PosDAO extends BaseDAO {
 
         int id = addViaHttp(jsonCategory, url);
         category.setId(id);
+        return id;
     }
 
     public int addProduct(Product product) {

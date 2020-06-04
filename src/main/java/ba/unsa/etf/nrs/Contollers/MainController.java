@@ -92,14 +92,39 @@ public class MainController {
         showProducts(products, buttonCssProps);
 
         //dodavanje kategorija iz baze
-
         String categoryButtonCssProps = "-fx-pref-height:25.0; -fx-pref-width:158.0;";
         List<Category> categories = dao.getCategories();
+        showCategories(categories, categoryButtonCssProps);
+    }
+
+    private void showCategories(List<Category> categories, String categoryButtonCssProps) {
         idCategoryName.setText(categories.get(0).getName());
 
         List<Button> categoryButtonList = new ArrayList<>();
         for (Category c : categories) {
             Button button = new Button(c.getName());
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent click) {
+                    if (click.getClickCount() == 2) {
+                        Category currentCategory = c;
+                        try {
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addCategory.fxml"));
+                            AddCategoryController ctrl = new AddCategoryController(currentCategory);
+                            fxmlLoader.setController(ctrl);
+                            Parent root = fxmlLoader.load();
+                            Stage newStage = new Stage();
+                            newStage.setTitle("Dodaj kategoriju");
+                            newStage.setScene(new Scene(root));
+                            newStage.setResizable(false);
+                            newStage.showAndWait();
+                            openGlavna();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
             categoryButtonList.add(button);
         }
 
@@ -110,7 +135,6 @@ public class MainController {
             categoryButtonList.get(i).setOnAction(getProductsForCategory(categories.get(i)));
             vboxCategories.getChildren().add(1, categoryButtonList.get(i));
         }
-
     }
 
     private EventHandler<ActionEvent> getProductsForCategory(Category category) {
@@ -162,8 +186,8 @@ public class MainController {
                             newStage.setTitle("Dodaj artikal");
                             newStage.setScene(new Scene(root));
                             newStage.setResizable(false);
-                            newStage.show();
-
+                            newStage.showAndWait();
+                            openGlavna();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -239,12 +263,15 @@ public class MainController {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addCategory.fxml"), bundle);
+            AddCategoryController ctrl = new AddCategoryController();
+            fxmlLoader.setController(ctrl);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_kategoriju"));
             newStage.setScene(new Scene(root));
             newStage.setResizable(false);
-            newStage.show();
+            newStage.showAndWait();
+            openGlavna();
         } catch (IOException e) {
             e.printStackTrace();
         }

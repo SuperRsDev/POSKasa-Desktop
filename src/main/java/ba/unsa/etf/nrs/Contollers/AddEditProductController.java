@@ -101,7 +101,6 @@ public class AddEditProductController {
             product = null;
             return;
         }
-        JOptionPane.showMessageDialog(null,"Uspješno ste sačuvali artikal!");
 
 
         if (product == null) {
@@ -115,8 +114,17 @@ public class AddEditProductController {
             product.setStatus(choiceStatus.getValue());
             int productId = dao.addProduct(product);
             product.setProductId(productId);
-        } else dao.updateProduct(product.getProductId(), fldName.getText(), Integer.parseInt(fldQuantity.getText()), choiceStatus.getValue(),
-                fldDescription.getText(), Integer.parseInt(fldUnitPrice.getText()), Integer.parseInt(fldSellingPrice.getText()), choiceCategory.getValue());
+            JOptionPane.showMessageDialog(null,"Uspješno ste sačuvali artikal!");
+            Stage stage = (Stage) fldName.getScene().getWindow();
+            stage.close();
+        } else {
+            dao.updateProduct(product.getProductId(), fldName.getText(), Integer.parseInt(fldQuantity.getText()), choiceStatus.getValue(),
+                    fldDescription.getText(), Integer.parseInt(fldUnitPrice.getText()), Integer.parseInt(fldSellingPrice.getText()), choiceCategory.getValue());
+            JOptionPane.showMessageDialog(null,"Uspješno ste sačuvali artikal!");
+            Stage stage = (Stage) fldName.getScene().getWindow();
+            stage.close();
+
+        }
     }
 
 

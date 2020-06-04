@@ -33,30 +33,30 @@
             <font>
                 <Font name="Arial Bold" size="12.218181610107422" />
             </font></Label>
-        <TextField promptText="Ime kategorije" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <TextField fx:id="fldName" promptText="Ime kategorije" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets top="10.0" />
             </GridPane.margin></TextField>
-        <PasswordField promptText="Opis" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <TextField fx:id="fldDescription" promptText="Opis" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets top="10.0" />
             </GridPane.margin>
-        </PasswordField>
-        <Button mnemonicParsing="false" text="Nazad" GridPane.rowIndex="3">
+        </TextField>
+        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#backAction" text="Nazad" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: greenyellow;" text="Sačuvaj" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: greenyellow;" text="Sačuvaj" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
             <font>
                 <Font name="Arial Black" size="12.218181610107422" />
             </font></Button>
-        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: lightpink;" text="Obriši" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: lightpink;" text="Obriši" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets top="20.0" />
             </GridPane.margin>
