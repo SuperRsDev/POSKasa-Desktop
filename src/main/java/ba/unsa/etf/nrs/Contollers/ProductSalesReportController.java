@@ -44,7 +44,7 @@ public class ProductSalesReportController {
 
     public void printNumericAction(ActionEvent actionEvent) {
         try {
-            new PrintReport().showReport(dao.getConn(), "salesReport.jrxml");
+            new PrintReport().showReport(dao.getConn(), "salesReports.jrxml");
         } catch (JRException e1) {
             e1.printStackTrace();
         }

@@ -6,12 +6,12 @@ import ba.unsa.etf.nrs.Services.AuthService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -54,6 +54,17 @@ public class PosDAO extends BaseDAO {
 
     private PosDAO() {
         try {
+
+            /*Class.forName("org.postgresql.Driver");
+            authService = AuthService.getInstance();
+            int port = 5432;
+            String dbUsername = "bzxhujhu";
+            String dbPassword = "MyT99Lbe6Xp0xgxIDAPrhRTU1YHbElbD";
+            String sqlDialect = "postgressql";
+            String host = "balarama.db.elephantsql.com";
+            String dbName = "bzxhujhu";
+            String useSSL = "true";
+*/
             Class.forName("com.mysql.cj.jdbc.Driver");
             authService = AuthService.getInstance();
             int port = 3308;
