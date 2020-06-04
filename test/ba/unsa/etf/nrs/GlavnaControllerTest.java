@@ -20,7 +20,7 @@ class GlavnaControllerTest {
 
     @Start
     public void start (Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
         ctrl = new GlavnaController();
         loader.setController(ctrl);
         Parent root = loader.load();

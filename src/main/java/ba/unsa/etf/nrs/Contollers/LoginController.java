@@ -1,9 +1,9 @@
 package ba.unsa.etf.nrs.Contollers;
 
+import ba.unsa.etf.nrs.DAO.PosDAO;
 import ba.unsa.etf.nrs.DataClasses.Role;
 import ba.unsa.etf.nrs.DataClasses.User;
 import ba.unsa.etf.nrs.NoInternetException;
-import ba.unsa.etf.nrs.DAO.PosDAO;
 import ba.unsa.etf.nrs.Services.AuthService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -158,7 +158,7 @@ public class LoginController {
                             try {
                                 if(!bosnian) Locale.setDefault(new Locale("en","US"));
                                 ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"), bundle);
                                 MainController ctrl = new MainController();
                                 fxmlLoader.setController(ctrl);
                                 Parent root = fxmlLoader.load();

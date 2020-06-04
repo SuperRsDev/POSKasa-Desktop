@@ -18,7 +18,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="31.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/93409465_1573488026195835_7063042060068061184_n.png" />
+                        <Image url="@../img/poslogo.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -51,7 +51,7 @@
                <graphic>
                   <ImageView fx:id="enFlagImg" fitHeight="20.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/flag-button-round-250.png" />
+                        <Image url="@../img/enFlagIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -64,7 +64,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/images-exit.png" />
+                        <Image url="@../img/exitIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -82,7 +82,7 @@
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/close_black_256x256.png" />
+                              <Image url="@../img/closeIcon.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="S_RESIZE" />
@@ -94,7 +94,7 @@
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/search-1288-433154.png" />
+                              <Image url="@../img/searchIcon.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="S_RESIZE" />

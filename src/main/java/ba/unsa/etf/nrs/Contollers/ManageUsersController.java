@@ -82,7 +82,7 @@ public class ManageUsersController {
     private void openGlavna() {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/pregled_korisnika.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/manageUsers.fxml"), bundle);
             MainController ctrl = new MainController();
             fxmlLoader.setController(ctrl);
             Stage stage = (Stage) idPane.getScene().getWindow();

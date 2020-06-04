@@ -165,7 +165,7 @@ public class MainController {
         buttonList.get(0).setTextAlignment(TextAlignment.valueOf("CENTER"));
         buttonList.get(0).setOnAction(addProductAction());
         ImageView image = new ImageView();
-        image.setImage(new Image("img/a-plus-png-5-transparent.png"));
+        image.setImage(new Image("img/addIcon.png"));
         image.setFitHeight(50.0);
         image.setFitWidth(50.0);
         buttonList.get(0).setGraphic(image);
@@ -213,7 +213,7 @@ public class MainController {
     private void openGlavna() {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"), bundle);
             MainController ctrl = new MainController();
             fxmlLoader.setController(ctrl);
             Stage stage = (Stage) idPane.getScene().getWindow();
@@ -339,7 +339,7 @@ public class MainController {
     public void btnShowEmployeesAction(ActionEvent actionEvent) {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/pregled_korisnika.fxml"), bundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/manageUsers.fxml"), bundle);
             Parent root = fxmlLoader.load();
             Stage newStage = new Stage();
             newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Korisnici"));
