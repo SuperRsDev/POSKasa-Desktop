@@ -109,16 +109,17 @@ public class MainController {
                     if (click.getClickCount() == 2) {
                         Category currentCategory = c;
                         try {
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addCategory.fxml"));
+                            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addCategory.fxml"), bundle);
                             AddCategoryController ctrl = new AddCategoryController(currentCategory);
                             fxmlLoader.setController(ctrl);
                             Parent root = fxmlLoader.load();
                             Stage newStage = new Stage();
-                            newStage.setTitle("Dodaj kategoriju");
+                            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_kategoriju"));
                             newStage.setScene(new Scene(root));
                             newStage.setResizable(false);
                             newStage.showAndWait();
-                            openGlavna();
+                            openMain();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -178,16 +179,17 @@ public class MainController {
                     if (click.getClickCount() == 2) {
                         Product currentProduct = p;
                         try {
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addEditProduct.fxml"));
+                            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addEditProduct.fxml"), bundle);
                             AddEditProductController ctrl = new AddEditProductController(currentProduct);
                             fxmlLoader.setController(ctrl);
                             Parent root = fxmlLoader.load();
                             Stage newStage = new Stage();
-                            newStage.setTitle("Dodaj artikal");
+                            newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_artikal"));
                             newStage.setScene(new Scene(root));
                             newStage.setResizable(false);
                             newStage.showAndWait();
-                            openGlavna();
+                            openMain();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -210,7 +212,7 @@ public class MainController {
         }
     }
 
-    private void openGlavna() {
+    private void openMain() {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"), bundle);
@@ -227,14 +229,14 @@ public class MainController {
         bosnian = true;
         choosen = true;
         Locale.setDefault(new Locale("bs", "BA"));
-        openGlavna();
+        openMain();
     }
 
     public void engleski(ActionEvent actionEvent) {
         Locale.setDefault(new Locale("en", "US"));
         bosnian = false;
         choosen = true;
-        openGlavna();
+        openMain();
     }
 
     public EventHandler addProductAction() {
@@ -248,10 +250,11 @@ public class MainController {
                     fxmlLoader.setController(ctrl);
                     Parent root = fxmlLoader.load();
                     Stage newStage = new Stage();
-                    newStage.setTitle(ResourceBundle.getBundle("Translation").getString("dodaj_artikal"));
+                    newStage.setTitle(ResourceBundle.getBundle("Translation").getString("Dodaj_artikal"));
                     newStage.setScene(new Scene(root));
                     newStage.setResizable(false);
-                    newStage.show();
+                    newStage.showAndWait();
+                    openMain();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -271,7 +274,7 @@ public class MainController {
             newStage.setScene(new Scene(root));
             newStage.setResizable(false);
             newStage.showAndWait();
-            openGlavna();
+            openMain();
         } catch (IOException e) {
             e.printStackTrace();
         }

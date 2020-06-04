@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class ProductSalesReportController {
     public Button btnBack;
@@ -33,7 +34,7 @@ public class ProductSalesReportController {
 
     @FXML
     public void initialize() {
-        lblTitle.setText("%Izvjestaji_o_najprodavanijim_artiklima");
+        lblTitle.setText(ResourceBundle.getBundle("Translation").getString("Izvjestaji_o_najprodavanijim_artiklima"));
     }
 
     public void backAction(ActionEvent actionEvent) {

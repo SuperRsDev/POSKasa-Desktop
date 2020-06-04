@@ -24,6 +24,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class AddEditProductController {
 
@@ -61,8 +62,8 @@ public class AddEditProductController {
     public void initialize() {
         choiceCategory.setItems(FXCollections.observableArrayList(dao.getCategories()));
         List<String> statusList= new ArrayList<>();
-        statusList.add("dostupan");
-        statusList.add("nedostupan");
+        statusList.add(ResourceBundle.getBundle("Translation").getString("Dostupan"));
+        statusList.add(ResourceBundle.getBundle("Translation").getString("Nedostupan"));
         choiceStatus.setItems(FXCollections.observableArrayList(statusList));
         if(product != null) {
             fldName.setText(product.getName());
@@ -123,7 +124,6 @@ public class AddEditProductController {
             JOptionPane.showMessageDialog(null,"Uspješno ste sačuvali artikal!");
             Stage stage = (Stage) fldName.getScene().getWindow();
             stage.close();
-
         }
     }
 
